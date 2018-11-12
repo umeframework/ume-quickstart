@@ -1,0 +1,50 @@
+// [album]
+{"id":101,"title":"Live +","artist":"Jeff Beck","genre":"02","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":102,"title":"Loud Hailer","artist":"Jeff Beck","genre":"02","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":201,"title":"The Dark Side Of The Moon","artist":"Pink Floyd","genre":"02","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":202,"title":"Animals","artist":"Pink Floyd","genre":"02","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":203,"title":"The Division Bell","artist":"Pink Floyd","genre":"02","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":301,"title":"Rumours","artist":"Fleetwood Mac","genre":"03","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":401,"title":"Toys In The Attic","artist":"Aerosmith","genre":"05","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":501,"title":"Ride The Lightning","artist":"Metallica","genre":"05","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":502,"title":"And Justice For All","artist":"Metallica","genre":"05","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":601,"title":"Bring ''Em In, Skin Deep","artist":"Buddy Guy","genre":"06","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":602,"title":"Bring ''Em In, Skin Deep","artist":"Buddy Guy","genre":"06","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"id":999,"title":"Nothing Can Like The Sun","artist":"Sting","coverPhoto":"[B@5824a83d","createAuthor":"TestUpdater","createDatetime":"2018-04-25 11:43:40.0","updateDatetime":"2018-04-25 11:43:40.0"}
+
+// [albumContributor]
+{"albumId":601,"trackNo":1,"contributor":"Eric Clapton","createAuthor":"admin","createDatetime":"2018-04-14 11:05:20.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:20.0"}
+{"albumId":601,"trackNo":2,"contributor":"B.B King","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+
+// [albumGenre]
+{"genreId":"01","genreName":"流行","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"genreId":"02","genreName":"摇滚","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"genreId":"03","genreName":"民谣","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"genreId":"04","genreName":"古典","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"genreId":"05","genreName":"重金属","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"genreId":"06","genreName":"蓝调","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+
+// [albumTrack]
+{"albumId":101,"trackNo":5,"trackName":"A Change Is Gonna Come","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":101,"trackNo":6,"trackName":"A Day In The Life","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":101,"trackNo":9,"trackName":"Little Wing","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":102,"trackNo":5,"trackName":"Scared For The Children","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":1,"trackName":"Speak To Me","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":2,"trackName":"Breathe","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":3,"trackName":"On The Run","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":4,"trackName":"Time","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":5,"trackName":"The Great Gig In The Sky","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":6,"trackName":"Money","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":7,"trackName":"Us And Them","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":8,"trackName":"Any Colour You Like","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":9,"trackName":"Brain Damage","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":201,"trackNo":10,"trackName":"Eclipse","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":202,"trackNo":1,"trackName":"Pigs On The Wing","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":202,"trackNo":2,"trackName":"Dogs","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":203,"trackNo":4,"trackName":"Marooned","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":203,"trackNo":11,"trackName":"High Hopes","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":502,"trackNo":2,"trackName":"...And Justice For All","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":502,"trackNo":4,"trackName":"One","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":601,"trackNo":1,"trackName":"Every Time I Sing The Blues","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+{"albumId":601,"trackNo":2,"trackName":"The Price You Gotta Pay","createAuthor":"admin","createDatetime":"2018-04-14 11:05:21.0","updateAuthor":"admin","updateDatetime":"2018-04-14 11:05:21.0"}
+
