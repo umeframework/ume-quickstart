@@ -1,4 +1,4 @@
-cd ume-quickstart-cloud
+cd ume-quickstart-boot
 call mvn clean install
 call mvn archetype:create-from-project
 cd target\generated-sources\archetype\
