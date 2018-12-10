@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.umeframework.dora.bean.BeanConfigConst;
 import org.umeframework.dora.service.user.UserAuthenticator;
-import org.umeframework.uac.user.dto.UserAclDto;
-import org.umeframework.uac.user.impl.DefaultAuthenticatorImpl;
+import org.umeframework.quickstart.uac.user.dto.UserAclDto;
+import org.umeframework.quickstart.uac.user.impl.DefaultAuthenticatorImpl;
 
 /**
  * Spring Boot启动用的主类<br>
@@ -79,7 +79,7 @@ import org.umeframework.uac.user.impl.DefaultAuthenticatorImpl;
     org.umeframework.dora.appconfig.DefaultUserLoginConfiguration.class,
     org.umeframework.dora.appconfig.DefaultWebControllerConfiguration.class })
 // 该设置创建并导入示例用的数据库及数据脚本；如果应用(通过application.properties的ume.jdbc设置)已变更为其他的数据库，请删除此设置。
-@ImportResource("classpath:config/ume-quickstart-boot-uac/initDataConfiguration.xml")
+@ImportResource("classpath:applicationInit.xml")
 @ComponentScan(basePackages = "org.umeframework.quickstart")
 public class Application {
 

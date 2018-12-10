@@ -74,7 +74,7 @@ import org.springframework.context.annotation.ImportResource;
     org.umeframework.dora.appconfig.DefaultUserLoginConfiguration.class,
     org.umeframework.dora.appconfig.DefaultWebControllerConfiguration.class })
 // 该设置创建并导入示例用的数据库及数据脚本；如果应用(通过application.properties的ume.jdbc设置)已变更为其他的数据库，请删除此设置。
-@ImportResource("classpath:config/ume-quickstart-boot/initDataConfiguration.xml")
+@ImportResource("classpath:applicationInit.xml")
 @ComponentScan(basePackages = "org.umeframework.quickstart")
 public class Application {
 
