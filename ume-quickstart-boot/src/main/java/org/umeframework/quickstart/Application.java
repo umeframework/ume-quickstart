@@ -62,7 +62,6 @@ import org.springframework.context.annotation.ImportResource;
     org.umeframework.dora.appconfig.DefaultDataSourceConfiguration.class,
     org.umeframework.dora.appconfig.DefaultExceptionHandlerConfiguration.class,
     org.umeframework.dora.appconfig.DefaultHttpProxyConfiguration.class,
-    org.umeframework.dora.appconfig.DefaultJdbcDataSourceManagerConfiguration.class,
     org.umeframework.dora.appconfig.DefaultLogConfiguration.class,
     org.umeframework.dora.appconfig.DefaultMessageConfiguration.class,
     org.umeframework.dora.appconfig.DefaultServiceAjaxConfiguration.class,

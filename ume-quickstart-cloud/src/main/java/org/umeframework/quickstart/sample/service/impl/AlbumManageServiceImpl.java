@@ -56,7 +56,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		AlbumDto albumBasic = this.albumService.find(albumBasicParam);
 		// AlbumDto albumBasic = getDao().queryForObject(AlbumDto.SQLID.FIND, albumCode, AlbumDto.class);
 		if (albumBasic == null) {
-			super.createMessage(SAMPLE_MSG_002, id);
+		    super.getLogger().info(SAMPLE_MSG_002, id);
 			return null;
 		}
 		// 返回结果唱片信息的描述对象
@@ -104,7 +104,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		List<AlbumDto> albumBasicList = this.albumService.findListLike(queryParam);
 		List<AlbumManageDto> albumList = new ArrayList<AlbumManageDto>(albumBasicList.size());
 		if (albumBasicList.size() == 0) {
-			super.createMessage(SAMPLE_MSG_008, artist);
+		    super.getLogger().info(SAMPLE_MSG_008, artist);
 			return albumList;
 		}
 		for (AlbumDto albumBasic : albumBasicList) {
@@ -123,7 +123,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 	public List<AlbumManageDto> queryAlbumList(AlbumDto queryParam) {
 		List<AlbumDto> albumBasicList = this.albumService.findList(queryParam);
 		if (albumBasicList.size() == 0) {
-			super.createMessage(SAMPLE_MSG_008, queryParam);
+		    super.getLogger().info(SAMPLE_MSG_008, queryParam);
 			return null;
 		}
 		List<AlbumManageDto> albumList = new ArrayList<AlbumManageDto>(albumBasicList.size());
@@ -193,8 +193,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		}
 		// 更新唱片基础信息
 		this.albumService.update(exist);
-		// 根据需求返回消息给客户端
-		super.createMessage(SAMPLE_MSG_003, exist.getId() + ":" + exist.getArtist() + "-" + exist.getTitle());
+		super.getLogger().info(SAMPLE_MSG_003, exist.getId() + ":" + exist.getArtist() + "-" + exist.getTitle());
 	}
 
 }

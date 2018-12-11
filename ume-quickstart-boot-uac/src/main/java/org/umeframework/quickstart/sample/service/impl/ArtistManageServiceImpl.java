@@ -52,8 +52,7 @@ public class ArtistManageServiceImpl extends BaseDBComponent implements ArtistMa
 				result.put(artist, albumList);
 			}
 			
-			// 向Service上下文中假如消息的范例（Service执行完无异常发生时消息会作为ServiceResponse的成员返回至客户端）
-			super.createMessage(SAMPLE_MSG_007, artist, albumList.size());
+			super.getLogger().info(SAMPLE_MSG_007, artist, albumList.size());
 		}
 		return result;
 	}
