@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.umeframework.dora.bean.BeanConfigConst;
-import org.umeframework.dora.service.user.UserAuthenticator;
+import org.umeframework.dora.contant.BeanConfigConst;
+import org.umeframework.dora.web.user.UserAuthenticator;
 import org.umeframework.quickstart.uac.user.dto.UserAclDto;
 import org.umeframework.quickstart.uac.user.impl.DefaultAuthenticatorImpl;
 
