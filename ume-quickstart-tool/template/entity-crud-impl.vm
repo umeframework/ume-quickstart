@@ -34,7 +34,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#create
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public Integer create(${dto.classId} entity) {
         validate(entity);
 #if(${dto.tblHistory} != '')
@@ -63,7 +62,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#createList
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public List<Integer> createList(List<${dto.classId}> entityList) {
         List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (${dto.classId} entity : entityList) {
@@ -77,7 +75,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#createOrUpdate
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public Integer createOrUpdate(${dto.classId} entity) {
         ${dto.classId} existed = super.getDao().queryForObject(${dto.classId}.SQLID.FIND, entity, ${dto.classId}.class);
         if (existed == null) {
@@ -93,7 +90,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#createOrUpdateList
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public List<Integer> createOrUpdateList(List<${dto.classId}> entityList) {
         List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (${dto.classId} entity : entityList) {
@@ -107,7 +103,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#update
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public Integer update(${dto.classId} entity) {
         validate(entity);
 #if(${dto.tblHistory} != '')
@@ -133,7 +128,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#updateList
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public List<Integer> updateList(List<${dto.classId}> entityList) {
         List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (${dto.classId} entity : entityList) {
@@ -147,7 +141,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#delete
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public Integer delete(${dto.classId} entity) {
 #if(${dto.tblHistory} != '')
         if (this.enableOperationHistory) {
@@ -167,7 +160,6 @@ public class ${dto.tableCrudServiceClass} extends org.umeframework.dora.service.
      * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#deleteList
      */
     @Override
-    @org.umeframework.dora.transaction.TransactionRequired
     public List<Integer> deleteList(List<${dto.classId}> entityList) {
         List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (${dto.classId} entity : entityList) {

@@ -1,11 +1,7 @@
 package org.umeframework.quickstart.sample.entity.crud.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.umeframework.dora.bean.BeanValidator;
-import org.umeframework.dora.transaction.TransactionRequired;
-import org.umeframework.dora.service.BaseDBComponent;
 import org.umeframework.quickstart.sample.entity.AlbumDto;
 import org.umeframework.quickstart.sample.entity.crud.AlbumCrudService;
 
@@ -15,14 +11,13 @@ import org.umeframework.quickstart.sample.entity.crud.AlbumCrudService;
  * @author UME-Generator
  */
 @org.springframework.stereotype.Service
-public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudService {
+public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBComponent implements AlbumCrudService {
 
     /* (non-Javadoc)
      * 
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#create
      */
     @Override
-    @TransactionRequired
     public Integer create(AlbumDto entity) {
         validate(entity);
         if (entity.getCreateAuthor() == null) {
@@ -40,9 +35,8 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#createList
      */
     @Override
-    @TransactionRequired
     public List<Integer> createList(List<AlbumDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumDto entity : entityList) {
             result.add(this.create(entity));
         }
@@ -54,7 +48,6 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#createOrUpdate
      */
     @Override
-    @TransactionRequired
     public Integer createOrUpdate(AlbumDto entity) {
         AlbumDto existed = super.getDao().queryForObject(AlbumDto.SQLID.FIND, entity, AlbumDto.class);
         if (existed == null) {
@@ -70,9 +63,8 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#createOrUpdateList
      */
     @Override
-    @TransactionRequired
     public List<Integer> createOrUpdateList(List<AlbumDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumDto entity : entityList) {
             result.add(this.createOrUpdate(entity));
         }
@@ -84,7 +76,6 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#update
      */
     @Override
-    @TransactionRequired
     public Integer update(AlbumDto entity) {
         validate(entity);
         if (entity.getUpdateAuthor() == null) {
@@ -99,9 +90,8 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#updateList
      */
     @Override
-    @TransactionRequired
     public List<Integer> updateList(List<AlbumDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumDto entity : entityList) {
             result.add(this.update(entity));
         }
@@ -113,7 +103,6 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#delete
      */
     @Override
-    @TransactionRequired
     public Integer delete(AlbumDto entity) {
         int result = super.getDao().update(AlbumDto.SQLID.DELETE, entity);
         return result;
@@ -124,15 +113,14 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#deleteList
      */
     @Override
-    @TransactionRequired
     public List<Integer> deleteList(List<AlbumDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumDto entity : entityList) {
             result.add(this.delete(entity));
         }
         return result;
     }
-    
+
     /* (non-Javadoc)
      * 
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#find
@@ -141,7 +129,6 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
     public AlbumDto find(AlbumDto queryParam) {
         return super.getDao().queryForObject(AlbumDto.SQLID.FIND, queryParam, AlbumDto.class);
     }
-    
     /* (non-Javadoc)
      * 
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumCrudService#findList
@@ -176,7 +163,7 @@ public class AlbumCrudServiceImpl extends BaseDBComponent implements AlbumCrudSe
      */
     protected void validate(AlbumDto entity) {
         // Here invoke the default entity check logic
-        BeanValidator beanValidator = new BeanValidator();
+        org.umeframework.dora.bean.BeanValidator beanValidator = new org.umeframework.dora.bean.BeanValidator();
         // Invoke validation rule
         beanValidator.validate(entity);
     }

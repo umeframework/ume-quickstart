@@ -62,7 +62,7 @@
       <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
       <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
     </set>
-    WHERE 1 = 1
+    WHERE 1 = 1 
       <if test="id != null">AND ID = #{id}</if>
       <if test="title != null">AND TITLE = #{title}</if>
       <if test="artist != null">AND ARTIST = #{artist}</if>
@@ -93,7 +93,6 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
   
-  
   <!-- Delete -->
   <delete id="ALBUM_DELETE" parameterType="org.umeframework.quickstart.sample.entity.AlbumDto">
     DELETE FROM ALBUM
@@ -102,6 +101,22 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
+  <!-- Delete Any -->
+  <delete id="ALBUM_DELETE_ANY" parameterType="org.umeframework.quickstart.sample.entity.AlbumDto">
+    DELETE FROM ALBUM
+    WHERE 1 = 1 
+      <if test="id != null">AND ID = #{id}</if>
+      <if test="title != null">AND TITLE = #{title}</if>
+      <if test="artist != null">AND ARTIST = #{artist}</if>
+      <if test="issueDate != null">AND ISSUE_DATE = #{issueDate}</if>
+      <if test="genre != null">AND GENRE = #{genre}</if>
+      <if test="coverPhoto != null">AND COVER_PHOTO = #{coverPhoto}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+  
   <!-- Find -->
   <select id="ALBUM_FIND" resultType="org.umeframework.quickstart.sample.entity.AlbumDto">
     SELECT
@@ -139,7 +154,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search -->
+  <!-- Find List -->
   <select id="ALBUM_FIND_LIST" resultType="org.umeframework.quickstart.sample.entity.AlbumDto">
     SELECT
       ID AS "id"
@@ -162,14 +177,14 @@
       <if test="coverPhoto != null">AND COVER_PHOTO = #{coverPhoto}</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>
   </select>
 
-  <!-- Like Search -->
+  <!-- Find List Like -->
   <select id="ALBUM_FIND_LIST_LIKE" resultType="org.umeframework.quickstart.sample.entity.AlbumDto">
     SELECT
       ID AS "id"
@@ -192,8 +207,8 @@
       <if test="coverPhoto != null">AND COVER_PHOTO LIKE CONCAT('%', #{coverPhoto}, '%')</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME LIKE CONCAT('%', #{createDatetime}, '%')</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME LIKE CONCAT('%', #{updateDatetime}, '%')</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>

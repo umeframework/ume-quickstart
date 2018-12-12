@@ -100,7 +100,6 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
   
-  
   <!-- Delete -->
   <delete id="UME_RESOURCE_DELETE" parameterType="org.umeframework.quickstart.uac.entity.UmeResourceDto">
     DELETE FROM UME_RESOURCE
@@ -110,6 +109,23 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
+  <!-- Delete Any -->
+  <delete id="UME_RESOURCE_DELETE_ANY" parameterType="org.umeframework.quickstart.uac.entity.UmeResourceDto">
+    DELETE FROM UME_RESOURCE
+    WHERE 1 = 1 
+      <if test="resId != null">AND RES_ID = #{resId}</if>
+      <if test="resType != null">AND RES_TYPE = #{resType}</if>
+      <if test="resName != null">AND RES_NAME = #{resName}</if>
+      <if test="resGroup != null">AND RES_GROUP = #{resGroup}</if>
+      <if test="resLink != null">AND RES_LINK = #{resLink}</if>
+      <if test="resIndex != null">AND RES_INDEX = #{resIndex}</if>
+      <if test="resStatus != null">AND RES_STATUS = #{resStatus}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+  
   <!-- Find -->
   <select id="UME_RESOURCE_FIND" resultType="org.umeframework.quickstart.uac.entity.UmeResourceDto">
     SELECT
@@ -151,7 +167,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search -->
+  <!-- Find List -->
   <select id="UME_RESOURCE_FIND_LIST" resultType="org.umeframework.quickstart.uac.entity.UmeResourceDto">
     SELECT
       RES_ID AS "resId"
@@ -176,14 +192,14 @@
       <if test="resStatus != null">AND RES_STATUS = #{resStatus}</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>
   </select>
 
-  <!-- Like Search -->
+  <!-- Find List Like -->
   <select id="UME_RESOURCE_FIND_LIST_LIKE" resultType="org.umeframework.quickstart.uac.entity.UmeResourceDto">
     SELECT
       RES_ID AS "resId"
@@ -208,8 +224,8 @@
       <if test="resStatus != null">AND RES_STATUS LIKE CONCAT('%', #{resStatus}, '%')</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME LIKE CONCAT('%', #{createDatetime}, '%')</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME LIKE CONCAT('%', #{updateDatetime}, '%')</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>

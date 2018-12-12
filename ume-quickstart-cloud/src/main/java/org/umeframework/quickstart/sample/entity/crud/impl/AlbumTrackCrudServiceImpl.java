@@ -1,11 +1,7 @@
 package org.umeframework.quickstart.sample.entity.crud.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.umeframework.dora.bean.BeanValidator;
-import org.umeframework.dora.transaction.TransactionRequired;
-import org.umeframework.dora.service.BaseDBComponent;
 import org.umeframework.quickstart.sample.entity.AlbumTrackDto;
 import org.umeframework.quickstart.sample.entity.crud.AlbumTrackCrudService;
 
@@ -15,14 +11,13 @@ import org.umeframework.quickstart.sample.entity.crud.AlbumTrackCrudService;
  * @author UME-Generator
  */
 @org.springframework.stereotype.Service
-public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumTrackCrudService {
+public class AlbumTrackCrudServiceImpl extends org.umeframework.dora.service.BaseDBComponent implements AlbumTrackCrudService {
 
     /* (non-Javadoc)
      * 
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#create
      */
     @Override
-    @TransactionRequired
     public Integer create(AlbumTrackDto entity) {
         validate(entity);
         if (entity.getCreateAuthor() == null) {
@@ -40,9 +35,8 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#createList
      */
     @Override
-    @TransactionRequired
     public List<Integer> createList(List<AlbumTrackDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumTrackDto entity : entityList) {
             result.add(this.create(entity));
         }
@@ -54,7 +48,6 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#createOrUpdate
      */
     @Override
-    @TransactionRequired
     public Integer createOrUpdate(AlbumTrackDto entity) {
         AlbumTrackDto existed = super.getDao().queryForObject(AlbumTrackDto.SQLID.FIND, entity, AlbumTrackDto.class);
         if (existed == null) {
@@ -70,9 +63,8 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#createOrUpdateList
      */
     @Override
-    @TransactionRequired
     public List<Integer> createOrUpdateList(List<AlbumTrackDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumTrackDto entity : entityList) {
             result.add(this.createOrUpdate(entity));
         }
@@ -84,7 +76,6 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#update
      */
     @Override
-    @TransactionRequired
     public Integer update(AlbumTrackDto entity) {
         validate(entity);
         if (entity.getUpdateAuthor() == null) {
@@ -99,9 +90,8 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#updateList
      */
     @Override
-    @TransactionRequired
     public List<Integer> updateList(List<AlbumTrackDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumTrackDto entity : entityList) {
             result.add(this.update(entity));
         }
@@ -113,7 +103,6 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#delete
      */
     @Override
-    @TransactionRequired
     public Integer delete(AlbumTrackDto entity) {
         int result = super.getDao().update(AlbumTrackDto.SQLID.DELETE, entity);
         return result;
@@ -124,15 +113,14 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#deleteList
      */
     @Override
-    @TransactionRequired
     public List<Integer> deleteList(List<AlbumTrackDto> entityList) {
-        List<Integer> result = new ArrayList<Integer>(entityList.size());
+        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
         for (AlbumTrackDto entity : entityList) {
             result.add(this.delete(entity));
         }
         return result;
     }
-    
+
     /* (non-Javadoc)
      * 
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#find
@@ -141,7 +129,6 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
     public AlbumTrackDto find(AlbumTrackDto queryParam) {
         return super.getDao().queryForObject(AlbumTrackDto.SQLID.FIND, queryParam, AlbumTrackDto.class);
     }
-    
     /* (non-Javadoc)
      * 
      * @see org.umeframework.quickstart.sample.entity.crud.impl.AlbumTrackCrudService#findList
@@ -176,7 +163,7 @@ public class AlbumTrackCrudServiceImpl extends BaseDBComponent implements AlbumT
      */
     protected void validate(AlbumTrackDto entity) {
         // Here invoke the default entity check logic
-        BeanValidator beanValidator = new BeanValidator();
+        org.umeframework.dora.bean.BeanValidator beanValidator = new org.umeframework.dora.bean.BeanValidator();
         // Invoke validation rule
         beanValidator.validate(entity);
     }

@@ -181,7 +181,6 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		if (trackList != null) {
 			for (AlbumTrackDto track : trackList) {
 				this.albumTrackService.update(track);
-				// super.getDao().update(AlbumTrackDto.SQLID.SMART_UPDATE, track);
 			}
 		}
 		// 更新参与者列表
@@ -194,6 +193,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		// 更新唱片基础信息
 		this.albumService.update(exist);
 		super.getLogger().info(SAMPLE_MSG_003, exist.getId() + ":" + exist.getArtist() + "-" + exist.getTitle());
+		    
 	}
 
 }

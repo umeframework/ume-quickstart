@@ -52,7 +52,7 @@
       <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
       <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
     </set>
-    WHERE 1 = 1
+    WHERE 1 = 1 
       <if test="genreId != null">AND GENRE_ID = #{genreId}</if>
       <if test="genreName != null">AND GENRE_NAME = #{genreName}</if>
       <if test="comment != null">AND COMMENT = #{comment}</if>
@@ -77,7 +77,6 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
   
-  
   <!-- Delete -->
   <delete id="ALBUM_GENRE_DELETE" parameterType="org.umeframework.quickstart.sample.entity.AlbumGenreDto">
     DELETE FROM ALBUM_GENRE
@@ -86,6 +85,19 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
+  <!-- Delete Any -->
+  <delete id="ALBUM_GENRE_DELETE_ANY" parameterType="org.umeframework.quickstart.sample.entity.AlbumGenreDto">
+    DELETE FROM ALBUM_GENRE
+    WHERE 1 = 1 
+      <if test="genreId != null">AND GENRE_ID = #{genreId}</if>
+      <if test="genreName != null">AND GENRE_NAME = #{genreName}</if>
+      <if test="comment != null">AND COMMENT = #{comment}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+  
   <!-- Find -->
   <select id="ALBUM_GENRE_FIND" resultType="org.umeframework.quickstart.sample.entity.AlbumGenreDto">
     SELECT
@@ -117,7 +129,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search -->
+  <!-- Find List -->
   <select id="ALBUM_GENRE_FIND_LIST" resultType="org.umeframework.quickstart.sample.entity.AlbumGenreDto">
     SELECT
       GENRE_ID AS "genreId"
@@ -134,14 +146,14 @@
       <if test="comment != null">AND COMMENT = #{comment}</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>
   </select>
 
-  <!-- Like Search -->
+  <!-- Find List Like -->
   <select id="ALBUM_GENRE_FIND_LIST_LIKE" resultType="org.umeframework.quickstart.sample.entity.AlbumGenreDto">
     SELECT
       GENRE_ID AS "genreId"
@@ -158,8 +170,8 @@
       <if test="comment != null">AND COMMENT LIKE CONCAT('%', #{comment}, '%')</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME LIKE CONCAT('%', #{createDatetime}, '%')</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME LIKE CONCAT('%', #{updateDatetime}, '%')</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>

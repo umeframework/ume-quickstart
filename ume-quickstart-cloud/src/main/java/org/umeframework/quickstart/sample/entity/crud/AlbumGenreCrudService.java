@@ -66,7 +66,7 @@ public interface AlbumGenreCrudService {
      * @return
      */
     Integer delete(AlbumGenreDto entity);
-    
+
     /**
      * Delete entity list.<br>
      * 
@@ -81,8 +81,7 @@ public interface AlbumGenreCrudService {
      * @param condition - query parameter
      * @return - matched entity instance
      */
-    AlbumGenreDto find(AlbumGenreDto condition);
-    
+    AlbumGenreDto find(AlbumGenreDto condition);    
     /**
      * Search entity list use equal match.<br>
      * 

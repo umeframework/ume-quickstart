@@ -119,7 +119,6 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
   
-  
   <!-- Delete -->
   <delete id="UME_USER_DELETE" parameterType="org.umeframework.quickstart.uac.entity.UmeUserDto">
     DELETE FROM UME_USER
@@ -128,6 +127,26 @@
       <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
+  <!-- Delete Any -->
+  <delete id="UME_USER_DELETE_ANY" parameterType="org.umeframework.quickstart.uac.entity.UmeUserDto">
+    DELETE FROM UME_USER
+    WHERE 1 = 1 
+      <if test="userId != null">AND USER_ID = #{userId}</if>
+      <if test="userPassword != null">AND USER_PASSWORD = #{userPassword}</if>
+      <if test="userName != null">AND USER_NAME = #{userName}</if>
+      <if test="userNickName != null">AND USER_NICK_NAME = #{userNickName}</if>
+      <if test="userGender != null">AND USER_GENDER = #{userGender}</if>
+      <if test="userMobile != null">AND USER_MOBILE = #{userMobile}</if>
+      <if test="userEmail != null">AND USER_EMAIL = #{userEmail}</if>
+      <if test="userHeadImage != null">AND USER_HEAD_IMAGE = #{userHeadImage}</if>
+      <if test="userDesc != null">AND USER_DESC = #{userDesc}</if>
+      <if test="userStatus != null">AND USER_STATUS = #{userStatus}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+  
   <!-- Find -->
   <select id="UME_USER_FIND" resultType="org.umeframework.quickstart.uac.entity.UmeUserDto">
     SELECT
@@ -173,7 +192,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search -->
+  <!-- Find List -->
   <select id="UME_USER_FIND_LIST" resultType="org.umeframework.quickstart.uac.entity.UmeUserDto">
     SELECT
       USER_ID AS "userId"
@@ -204,14 +223,14 @@
       <if test="userStatus != null">AND USER_STATUS = #{userStatus}</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>
   </select>
 
-  <!-- Like Search -->
+  <!-- Find List Like -->
   <select id="UME_USER_FIND_LIST_LIKE" resultType="org.umeframework.quickstart.uac.entity.UmeUserDto">
     SELECT
       USER_ID AS "userId"
@@ -242,8 +261,8 @@
       <if test="userStatus != null">AND USER_STATUS LIKE CONCAT('%', #{userStatus}, '%')</if>
       <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
       <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
-      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
-      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME LIKE CONCAT('%', #{createDatetime}, '%')</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME LIKE CONCAT('%', #{updateDatetime}, '%')</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
       <if test="theFetchSize != null">LIMIT ${theFetchStart}, ${theFetchSize}</if>

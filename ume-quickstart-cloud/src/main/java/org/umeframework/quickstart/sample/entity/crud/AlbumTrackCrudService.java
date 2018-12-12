@@ -66,7 +66,7 @@ public interface AlbumTrackCrudService {
      * @return
      */
     Integer delete(AlbumTrackDto entity);
-    
+
     /**
      * Delete entity list.<br>
      * 
@@ -81,8 +81,7 @@ public interface AlbumTrackCrudService {
      * @param condition - query parameter
      * @return - matched entity instance
      */
-    AlbumTrackDto find(AlbumTrackDto condition);
-    
+    AlbumTrackDto find(AlbumTrackDto condition);    
     /**
      * Search entity list use equal match.<br>
      * 

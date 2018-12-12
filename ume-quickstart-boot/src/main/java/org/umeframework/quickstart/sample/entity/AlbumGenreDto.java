@@ -200,16 +200,17 @@ public class AlbumGenreDto extends TableObject implements Serializable {
      * Constant declare: SQL ID in config file
      */
     public static class SQLID {
+        public static final String FIND_LIST = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND_LIST";
+        public static final String FIND_LIST_LIKE = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND_LIST_LIKE";
+        public static final String COUNT = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_COUNT";
+        public static final String FIND = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND";
+        public static final String FIND_FOR_UPDATE = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND_FOR_UPDATE";
         public static final String INSERT = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_INSERT";
         public static final String UPDATE = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_UPDATE";
         public static final String UPDATE_FULLY = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_UPDATE_FULLY";
         public static final String UPDATE_ANY = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_UPDATE_ANY";
         public static final String DELETE = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_DELETE";
-        public static final String FIND = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND";
-        public static final String FIND_FOR_UPDATE = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND_FOR_UPDATE";
-        public static final String FIND_LIST = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND_LIST";
-        public static final String FIND_LIST_LIKE = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_FIND_LIST_LIKE";
-        public static final String COUNT = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_COUNT";
+        public static final String DELETE_ANY = "org.umeframework.quickstart.sample.entity.ALBUM_GENRE_DELETE_ANY";
     } 
 
     /**

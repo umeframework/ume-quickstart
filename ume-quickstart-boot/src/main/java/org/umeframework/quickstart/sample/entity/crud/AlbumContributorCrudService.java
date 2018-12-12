@@ -66,7 +66,7 @@ public interface AlbumContributorCrudService {
      * @return
      */
     Integer delete(AlbumContributorDto entity);
-    
+
     /**
      * Delete entity list.<br>
      * 
@@ -81,8 +81,7 @@ public interface AlbumContributorCrudService {
      * @param condition - query parameter
      * @return - matched entity instance
      */
-    AlbumContributorDto find(AlbumContributorDto condition);
-    
+    AlbumContributorDto find(AlbumContributorDto condition);    
     /**
      * Search entity list use equal match.<br>
      * 
