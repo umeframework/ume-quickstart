@@ -25,9 +25,7 @@
      ">
 
 	<jdbc:initialize-database data-source="doraBasicDataSource" ignore-failures="DROPS" enabled="true">
-        <jdbc:script location="classpath:config/ume-quickstart-cloud/ddl/h2/createTable.sql" encoding="UTF-8"/>
-        <jdbc:script location="classpath:config/ume-quickstart-cloud/ddl/h2/insertData.sql" encoding="UTF-8"/>
-
+        <jdbc:script location="classpath:ddl/h2/sample.sql" encoding="UTF-8"/>
 	</jdbc:initialize-database>
 
 </beans>
