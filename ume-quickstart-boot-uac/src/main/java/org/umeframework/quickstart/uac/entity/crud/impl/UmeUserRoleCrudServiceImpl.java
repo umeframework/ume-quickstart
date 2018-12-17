@@ -21,12 +21,12 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
     public Integer create(UmeUserRoleDto entity) {
         validate(entity);
         if (entity.getCreateAuthor() == null) {
-            entity.setCreateAuthor(super.getUid());
+            entity.setCreateAuthor(getUid());
         }
         if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(super.getUid());
+            entity.setUpdateAuthor(getUid());
         }
-        int result = super.getDao().update(UmeUserRoleDto.SQLID.INSERT, entity);
+        int result = getDao().update(UmeUserRoleDto.SQLID.INSERT, entity);
         return result;
     }
     
@@ -49,7 +49,7 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
      */
     @Override
     public Integer createOrUpdate(UmeUserRoleDto entity) {
-        UmeUserRoleDto existed = super.getDao().queryForObject(UmeUserRoleDto.SQLID.FIND, entity, UmeUserRoleDto.class);
+        UmeUserRoleDto existed = getDao().queryForObject(UmeUserRoleDto.SQLID.FIND, entity, UmeUserRoleDto.class);
         if (existed == null) {
             return this.create(entity);
         } else {
@@ -79,9 +79,9 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
     public Integer update(UmeUserRoleDto entity) {
         validate(entity);
         if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(super.getUid());
+            entity.setUpdateAuthor(getUid());
         }
-        int result = super.getDao().update(UmeUserRoleDto.SQLID.UPDATE, entity);
+        int result = getDao().update(UmeUserRoleDto.SQLID.UPDATE, entity);
         return result;
     }
     
@@ -104,7 +104,7 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
      */
     @Override
     public Integer delete(UmeUserRoleDto entity) {
-        int result = super.getDao().update(UmeUserRoleDto.SQLID.DELETE, entity);
+        int result = getDao().update(UmeUserRoleDto.SQLID.DELETE, entity);
         return result;
     }
     
@@ -127,7 +127,7 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
      */
     @Override
     public UmeUserRoleDto find(UmeUserRoleDto queryParam) {
-        return super.getDao().queryForObject(UmeUserRoleDto.SQLID.FIND, queryParam, UmeUserRoleDto.class);
+        return getDao().queryForObject(UmeUserRoleDto.SQLID.FIND, queryParam, UmeUserRoleDto.class);
     }
     /* (non-Javadoc)
      * 
@@ -135,7 +135,7 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
      */
     @Override
     public List<UmeUserRoleDto> findList(UmeUserRoleDto condition) {
-        return super.getDao().queryForObjectList(UmeUserRoleDto.SQLID.FIND_LIST, condition, UmeUserRoleDto.class);
+        return getDao().queryForObjectList(UmeUserRoleDto.SQLID.FIND_LIST, condition, UmeUserRoleDto.class);
     }
     
     /* (non-Javadoc)
@@ -144,7 +144,7 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
      */
     @Override
     public List<UmeUserRoleDto> findListLike(Map<String, String> condition) {
-        return super.getDao().queryForObjectList(UmeUserRoleDto.SQLID.FIND_LIST_LIKE, condition, UmeUserRoleDto.class);
+        return getDao().queryForObjectList(UmeUserRoleDto.SQLID.FIND_LIST_LIKE, condition, UmeUserRoleDto.class);
     }
     
     /* (non-Javadoc)
@@ -153,7 +153,7 @@ public class UmeUserRoleCrudServiceImpl extends org.umeframework.dora.service.Ba
      */
     @Override
     public Integer count(Map<String, String> condition) {
-        return super.getDao().count(UmeUserRoleDto.SQLID.COUNT, condition);
+        return getDao().count(UmeUserRoleDto.SQLID.COUNT, condition);
     }
 
     /**

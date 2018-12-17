@@ -38,13 +38,10 @@ public class RemoteAlbumServiceImpl extends BaseComponent implements CloudAlbumM
             // 当入参包含'fallback'关键字时，模拟调用熔断情况
             throw new RuntimeException("Invoke faild, fallback message:" + inParam.get("fallback"));
         }
-        
-
         String url = "http://ume-quickstart-cloud/service/capi/sys/ws003";
-        super.getLogger().info("Invoke cloud service " + url);
+        getLogger().info("Invoke cloud service " + url);
         ResponseEntity<AlbumManageDto[]> responseEntity = restTemplate.postForEntity(url, inParam, AlbumManageDto[].class);
-        super.getLogger().info("Invoke cloud service response:" + responseEntity.getBody());
-        
+        getLogger().info("Invoke cloud service response:" + responseEntity.getBody());
         return responseEntity.getBody();
     }
 
@@ -56,7 +53,7 @@ public class RemoteAlbumServiceImpl extends BaseComponent implements CloudAlbumM
      * @return
      */
     public AlbumManageDto[] queryAlbumList_fallback(Map<String, String> inParam, Throwable invokeError) {
-        super.getLogger().warn("Entry fallback logic due to:" + invokeError.getMessage());
+        getLogger().warn("Entry fallback logic due to:" + invokeError.getMessage());
         AlbumManageDto fbResult = new AlbumManageDto();
         fbResult.setMessage("Entry fallback logic due to:" + invokeError.getMessage());
         return new AlbumManageDto[] {fbResult};

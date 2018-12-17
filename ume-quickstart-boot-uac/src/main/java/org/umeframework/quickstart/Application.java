@@ -23,31 +23,7 @@ import org.umeframework.quickstart.uac.user.impl.DefaultAuthenticatorImpl;
  * <li>基于XML配置的场合，使用：@ImportResource("classpath:applicationContext.xml")<br>
  * <br><br>
  * 当默认的自动配置类org.umeframework.dora.appconfig.AutoConfiguration被导入·启动时，<br>
- * 框架默认声明了以下名称的Bean，因此应用中需要避免再次声明相同名称的Bean，否则会发生命名冲突。<br>
- * <li>"doraBeanFactory" - org.umeframework.dora.bean.impl.BeanFactoryImpl
- * <li>"doraUserCacheManager" - org.umeframework.dora.cache.impl.TempMemoryCachedImpl 
- * <li>"doraRdbDao" - org.umeframework.dora.dao.impl.BatisDaoImpl 
- * <li>"doraBasicDataSource" - org.apache.commons.dbcp.BasicDataSource 
- * <li>"doraExceptionHandler" - org.umeframework.dora.exception.impl.ExceptionHandlerImpl 
- * <li>"doraHttpProxy" - org.umeframework.dora.http.impl.HttpProxyImpl 
- * <li>"doraHttpProxy[json]" - org.umeframework.dora.http.impl.HttpProxyImpl 
- * <li>"doraHttpProxy[xml]" - org.umeframework.dora.http.impl.HttpProxyImpl 
- * <li>"doraHttpProxy[x-www-form-urlencoded]" - org.umeframework.dora.http.impl.HttpProxyImpl 
- * <li>"doraRemoteServiceClient" - org.umeframework.dora.http.impl.RemoteServiceProxyImpl 
- * <li>"doraJdbcDataSourceManager" - org.umeframework.dora.connection.impl.JdbcDataSourceManagerImpl 
- * <li>"doraLogger" - org.umeframework.dora.log.Logger 
- * <li>"doraUserLoginService" - org.umeframework.dora.service.user.impl.UserLoginServiceImpl 
- * <li>"doraMessageProperties" - org.umeframework.dora.message.MessageProperties 
- * <li>"doraAjaxParser" - org.umeframework.dora.ajax.impl.JSONParserImpl 
- * <li>"doraAjaxRender" - org.umeframework.dora.ajax.impl.UnicodeJSONRenderImpl 
- * <li>"doraServiceMappingConfigProperties" - org.umeframework.dora.property.impl.ConfigPropertiesImpl 
- * <li>"doraServiceWhiteListConfigProperties" - org.umeframework.dora.property.impl.ConfigPropertiesImpl 
- * <li>"doraServiceMapping" - org.umeframework.dora.service.mapping.impl.ServiceMappingImpl 
- * <li>"doraServiceMappingDesc" - org.umeframework.dora.service.mapping.impl.ServiceMappingDescImpl 
- * <li>"doraSystemPropertyConfiguration" - org.umeframework.dora.appconfig.DefaultSystemPropertyConfiguration 
- * <li>"doraTransactionManager" - org.umeframework.dora.transaction.impl.TransactionManagerImpl 
- * <li>"doraServiceRunner" - org.umeframework.dora.service.runner.impl.TransactionalServiceRunnerImpl
- * <li>"sys" - org.umeframework.dora.service.runner.impl.AjaxServiceRunnerImpl 
+ * 框架会默认声明一组名称的Bean(这些在BeanConfigConst.java中定义)，因此应用中需避免再次定义相同的名称，否则会发生命名重复。<br>
  * <br><br>
  * @author Yue MA
  */

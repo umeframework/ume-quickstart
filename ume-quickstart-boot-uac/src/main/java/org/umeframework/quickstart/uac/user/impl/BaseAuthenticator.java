@@ -97,7 +97,7 @@ public abstract class BaseAuthenticator<USER_DTO> extends BaseDBComponent implem
 		userAcl.setUser(bizUser);
 		Object uid = null;
 		try {
-			uid = BeanUtil.getBeanProperty(bizUser, this.getKeyUID());
+			uid = BeanUtil.getBeanProperty(bizUser, getKeyUID());
 		} catch (Exception e) {
 			// Ignore set exception here
 		}
@@ -133,10 +133,10 @@ public abstract class BaseAuthenticator<USER_DTO> extends BaseDBComponent implem
 
 			if (accResId.contains("*")) {
 				// mark and skip resource which contains '*'(such as 'image*') in 'UME_ROLE_ACL.ACC_RES_ID'
-				this.saveAs(accResMapB, e);
+				saveAs(accResMapB, e);
 				continue;
 			}
-			this.saveAs(accResMapA, e);
+			saveAs(accResMapA, e);
 			roleList.add(roleId);
 			accResTypeList.add(resType);
 		}
@@ -152,7 +152,7 @@ public abstract class BaseAuthenticator<USER_DTO> extends BaseDBComponent implem
 					e.put(UmeRoleDto.Property.roleId, roleId);
 					e.put(UmeRoleAclDto.Property.accLevel, accLevel);
 					// e.put(UmeRoleAclDto.Property.accResId, e.get(UmeResourceDto.Property.resId));
-					this.saveAs(accResMapA, e);
+					saveAs(accResMapA, e);
 					Integer resType = (Integer) e.get(UmeResourceDto.Property.resType);
 					accResTypeList.add(resType);
 				}

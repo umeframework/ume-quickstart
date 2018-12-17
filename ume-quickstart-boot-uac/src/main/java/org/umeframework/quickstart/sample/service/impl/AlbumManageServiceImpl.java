@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.stereotype.Service;
+import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.service.BaseDBComponent;
 import org.umeframework.quickstart.sample.entity.AlbumContributorDto;
 import org.umeframework.quickstart.sample.entity.AlbumDto;
@@ -56,7 +57,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		AlbumDto albumBasic = this.albumService.find(albumBasicParam);
 		// AlbumDto albumBasic = getDao().queryForObject(AlbumDto.SQLID.FIND, albumCode, AlbumDto.class);
 		if (albumBasic == null) {
-		    super.getLogger().info(SAMPLE_MSG_002, id);
+		    getLogger().info(SAMPLE_MSG_002, id);
 			return null;
 		}
 		// 返回结果唱片信息的描述对象
@@ -104,7 +105,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		List<AlbumDto> albumBasicList = this.albumService.findListLike(queryParam);
 		List<AlbumManageDto> albumList = new ArrayList<AlbumManageDto>(albumBasicList.size());
 		if (albumBasicList.size() == 0) {
-		    super.getLogger().info(SAMPLE_MSG_008, artist);
+		    getLogger().info(SAMPLE_MSG_008, artist);
 			return albumList;
 		}
 		for (AlbumDto albumBasic : albumBasicList) {
@@ -123,7 +124,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 	public List<AlbumManageDto> queryAlbumList(AlbumDto queryParam) {
 		List<AlbumDto> albumBasicList = this.albumService.findList(queryParam);
 		if (albumBasicList.size() == 0) {
-		    super.getLogger().info(SAMPLE_MSG_008, queryParam);
+		    getLogger().info(SAMPLE_MSG_008, queryParam);
 			return null;
 		}
 		List<AlbumManageDto> albumList = new ArrayList<AlbumManageDto>(albumBasicList.size());
@@ -168,12 +169,12 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		AlbumDto album = param.getAlbum();
 		// 更新前基础校验
 		if (album.getId() == null || album.getId() < 0) {
-			super.createApplicationException(SAMPLE_MSG_001, album.getId());
+			throw new ApplicationException(SAMPLE_MSG_001, new Object[] {album.getId()});
 		}
 		// 更新前业务校验
 		AlbumDto exist = this.albumService.find(album);
 		if (exist == null) {
-			super.createApplicationException(SAMPLE_MSG_002, album.getId());
+			throw new ApplicationException(SAMPLE_MSG_002, new Object[] {album.getId()});
 		}
 
 		// 更新曲目列表
@@ -192,7 +193,7 @@ public class AlbumManageServiceImpl extends BaseDBComponent implements AlbumMana
 		}
 		// 更新唱片基础信息
 		this.albumService.update(exist);
-		super.getLogger().info(SAMPLE_MSG_003, exist.getId() + ":" + exist.getArtist() + "-" + exist.getTitle());
+		getLogger().info(SAMPLE_MSG_003, exist.getId() + ":" + exist.getArtist() + "-" + exist.getTitle());
 		    
 	}
 

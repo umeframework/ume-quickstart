@@ -21,12 +21,12 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
     public Integer create(AlbumDto entity) {
         validate(entity);
         if (entity.getCreateAuthor() == null) {
-            entity.setCreateAuthor(super.getUid());
+            entity.setCreateAuthor(getUid());
         }
         if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(super.getUid());
+            entity.setUpdateAuthor(getUid());
         }
-        int result = super.getDao().update(AlbumDto.SQLID.INSERT, entity);
+        int result = getDao().update(AlbumDto.SQLID.INSERT, entity);
         return result;
     }
     
@@ -49,7 +49,7 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
      */
     @Override
     public Integer createOrUpdate(AlbumDto entity) {
-        AlbumDto existed = super.getDao().queryForObject(AlbumDto.SQLID.FIND, entity, AlbumDto.class);
+        AlbumDto existed = getDao().queryForObject(AlbumDto.SQLID.FIND, entity, AlbumDto.class);
         if (existed == null) {
             return this.create(entity);
         } else {
@@ -79,9 +79,9 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
     public Integer update(AlbumDto entity) {
         validate(entity);
         if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(super.getUid());
+            entity.setUpdateAuthor(getUid());
         }
-        int result = super.getDao().update(AlbumDto.SQLID.UPDATE, entity);
+        int result = getDao().update(AlbumDto.SQLID.UPDATE, entity);
         return result;
     }
     
@@ -104,7 +104,7 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
      */
     @Override
     public Integer delete(AlbumDto entity) {
-        int result = super.getDao().update(AlbumDto.SQLID.DELETE, entity);
+        int result = getDao().update(AlbumDto.SQLID.DELETE, entity);
         return result;
     }
     
@@ -127,7 +127,7 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
      */
     @Override
     public AlbumDto find(AlbumDto queryParam) {
-        return super.getDao().queryForObject(AlbumDto.SQLID.FIND, queryParam, AlbumDto.class);
+        return getDao().queryForObject(AlbumDto.SQLID.FIND, queryParam, AlbumDto.class);
     }
     /* (non-Javadoc)
      * 
@@ -135,7 +135,7 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
      */
     @Override
     public List<AlbumDto> findList(AlbumDto condition) {
-        return super.getDao().queryForObjectList(AlbumDto.SQLID.FIND_LIST, condition, AlbumDto.class);
+        return getDao().queryForObjectList(AlbumDto.SQLID.FIND_LIST, condition, AlbumDto.class);
     }
     
     /* (non-Javadoc)
@@ -144,7 +144,7 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
      */
     @Override
     public List<AlbumDto> findListLike(Map<String, String> condition) {
-        return super.getDao().queryForObjectList(AlbumDto.SQLID.FIND_LIST_LIKE, condition, AlbumDto.class);
+        return getDao().queryForObjectList(AlbumDto.SQLID.FIND_LIST_LIKE, condition, AlbumDto.class);
     }
     
     /* (non-Javadoc)
@@ -153,7 +153,7 @@ public class AlbumCrudServiceImpl extends org.umeframework.dora.service.BaseDBCo
      */
     @Override
     public Integer count(Map<String, String> condition) {
-        return super.getDao().count(AlbumDto.SQLID.COUNT, condition);
+        return getDao().count(AlbumDto.SQLID.COUNT, condition);
     }
 
     /**

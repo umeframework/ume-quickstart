@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.service.BaseDBComponent;
 import org.umeframework.quickstart.sample.message.MessageConst;
 import org.umeframework.quickstart.sample.service.AlbumManageService;
@@ -23,37 +24,37 @@ import org.umeframework.quickstart.sample.service.dto.AlbumManageDto;
  */
 @Service
 public class ArtistManageServiceImpl extends BaseDBComponent implements ArtistManageService, MessageConst {
-	/**
-	 * AlbumService服务实例。<br>
-	 */
-	@Resource
-	private AlbumManageService albumService;
+    /**
+     * AlbumService服务实例。<br>
+     */
+    @Resource
+    private AlbumManageService albumService;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ume.sample.service.ArtistService#getAchievements(java.lang.String[])
-	 */
-	@Override
-	public Map<String, List<AlbumManageDto>> queryAchievements(String... artists) {
-		// 抛出ApplicationException的范例
-		if (artists == null) {
-			super.createApplicationException(SAMPLE_MSG_005);
-		}
-		int maxQueryLimit = 3;
-		if (artists.length > maxQueryLimit) {
-			super.createApplicationException(SAMPLE_MSG_006, artists.length, maxQueryLimit);
-		}
-		
-		Map<String, List<AlbumManageDto>> result = new HashMap<String, List<AlbumManageDto>>();
-		for (String artist : artists) {
-			List<AlbumManageDto> albumList = albumService.queryAlbumListByArtistTitle(artist, null);
-			if (albumList != null && albumList.size() > 0) {
-				result.put(artist, albumList);
-			}
-			
-			super.getLogger().info(SAMPLE_MSG_007, artist, albumList.size());
-		}
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.ume.sample.service.ArtistService#getAchievements(java.lang.String[])
+     */
+    @Override
+    public Map<String, List<AlbumManageDto>> queryAchievements(String... artists) {
+        // 抛出ApplicationException的范例
+        if (artists == null) {
+            throw new ApplicationException(SAMPLE_MSG_005);
+        }
+        int maxQueryLimit = 3;
+        if (artists.length > maxQueryLimit) {
+            throw new ApplicationException(SAMPLE_MSG_006, new Object[] { artists.length, maxQueryLimit });
+        }
+
+        Map<String, List<AlbumManageDto>> result = new HashMap<String, List<AlbumManageDto>>();
+        for (String artist : artists) {
+            List<AlbumManageDto> albumList = albumService.queryAlbumListByArtistTitle(artist, null);
+            if (albumList != null && albumList.size() > 0) {
+                result.put(artist, albumList);
+            }
+
+            getLogger().info(SAMPLE_MSG_007, artist, albumList.size());
+        }
+        return result;
+    }
 }

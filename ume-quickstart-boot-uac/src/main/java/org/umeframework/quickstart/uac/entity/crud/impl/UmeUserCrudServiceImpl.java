@@ -21,12 +21,12 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
     public Integer create(UmeUserDto entity) {
         validate(entity);
         if (entity.getCreateAuthor() == null) {
-            entity.setCreateAuthor(super.getUid());
+            entity.setCreateAuthor(getUid());
         }
         if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(super.getUid());
+            entity.setUpdateAuthor(getUid());
         }
-        int result = super.getDao().update(UmeUserDto.SQLID.INSERT, entity);
+        int result = getDao().update(UmeUserDto.SQLID.INSERT, entity);
         return result;
     }
     
@@ -49,7 +49,7 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
      */
     @Override
     public Integer createOrUpdate(UmeUserDto entity) {
-        UmeUserDto existed = super.getDao().queryForObject(UmeUserDto.SQLID.FIND, entity, UmeUserDto.class);
+        UmeUserDto existed = getDao().queryForObject(UmeUserDto.SQLID.FIND, entity, UmeUserDto.class);
         if (existed == null) {
             return this.create(entity);
         } else {
@@ -79,9 +79,9 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
     public Integer update(UmeUserDto entity) {
         validate(entity);
         if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(super.getUid());
+            entity.setUpdateAuthor(getUid());
         }
-        int result = super.getDao().update(UmeUserDto.SQLID.UPDATE, entity);
+        int result = getDao().update(UmeUserDto.SQLID.UPDATE, entity);
         return result;
     }
     
@@ -104,7 +104,7 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
      */
     @Override
     public Integer delete(UmeUserDto entity) {
-        int result = super.getDao().update(UmeUserDto.SQLID.DELETE, entity);
+        int result = getDao().update(UmeUserDto.SQLID.DELETE, entity);
         return result;
     }
     
@@ -127,7 +127,7 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
      */
     @Override
     public UmeUserDto find(UmeUserDto queryParam) {
-        return super.getDao().queryForObject(UmeUserDto.SQLID.FIND, queryParam, UmeUserDto.class);
+        return getDao().queryForObject(UmeUserDto.SQLID.FIND, queryParam, UmeUserDto.class);
     }
     /* (non-Javadoc)
      * 
@@ -135,7 +135,7 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
      */
     @Override
     public List<UmeUserDto> findList(UmeUserDto condition) {
-        return super.getDao().queryForObjectList(UmeUserDto.SQLID.FIND_LIST, condition, UmeUserDto.class);
+        return getDao().queryForObjectList(UmeUserDto.SQLID.FIND_LIST, condition, UmeUserDto.class);
     }
     
     /* (non-Javadoc)
@@ -144,7 +144,7 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
      */
     @Override
     public List<UmeUserDto> findListLike(Map<String, String> condition) {
-        return super.getDao().queryForObjectList(UmeUserDto.SQLID.FIND_LIST_LIKE, condition, UmeUserDto.class);
+        return getDao().queryForObjectList(UmeUserDto.SQLID.FIND_LIST_LIKE, condition, UmeUserDto.class);
     }
     
     /* (non-Javadoc)
@@ -153,7 +153,7 @@ public class UmeUserCrudServiceImpl extends org.umeframework.dora.service.BaseDB
      */
     @Override
     public Integer count(Map<String, String> condition) {
-        return super.getDao().count(UmeUserDto.SQLID.COUNT, condition);
+        return getDao().count(UmeUserDto.SQLID.COUNT, condition);
     }
 
     /**

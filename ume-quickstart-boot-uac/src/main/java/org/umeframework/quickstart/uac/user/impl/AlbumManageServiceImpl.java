@@ -1,4 +1,4 @@
-package org.umeframework.quickstart.sample.service.impl;
+package org.umeframework.quickstart.uac.user.impl;
 
 import java.util.ArrayList;
 import java.util.List;

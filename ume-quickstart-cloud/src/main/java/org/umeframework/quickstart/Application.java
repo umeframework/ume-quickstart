@@ -21,16 +21,15 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServl
  * Spring Boot启动用的主类<br>
  * 只需在该类的头部用注解标注的形式，即可启动一个内嵌Web服务器的Java项目<br>
  * <br>
- * Dora框架提供基于注解自动配置和基于XML配置两种方案，分别采用如下说明的方法来选择配置方式：<br>
+ * 框架提供基于注解自动配置和基于XML配置两种方案，分别采用如下说明的方法来选择配置方式：<br>
  * <li>基于注解自动配置 - 在主类的头部添加"@ImportAutoConfiguration"设置
  * <li>基于注解自动配置 - 在主类的头部添加"@ImportResource"设置
  * <li>对于要从自动配置中排除的模块，使用"@EnableAutoConfiguration(exclude=...)"设置 <br>
  * <li>基于XML配置的场合，使用：@ImportResource("classpath:applicationContext.xml")<br>
- * <br>
- * <br>
+ * <br><br>
  * 当默认的自动配置类org.umeframework.dora.appconfig.AutoConfiguration被导入·启动时，<br>
- * <br>
- * 
+ * 框架会默认声明一组名称的Bean(这些在BeanConfigConst.java中定义)，因此应用中需避免再次定义相同的名称，否则会发生命名重复。<br>
+ * <br><br>
  * @author Yue MA
  */
 @EnableDiscoveryClient
