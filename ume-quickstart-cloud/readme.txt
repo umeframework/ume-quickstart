@@ -11,17 +11,17 @@
   打开浏览器窗口(浏览器推荐使用Firefox或Chrome，安装Json-handle插件以编译查看JSON格式的数据)，
   
   #本地服务
-  http://localhost:8083/service/capi/sys/ws901/
+  http://localhost:8081/service/capi/sys/ws901/
 
   #服务熔断测试
   #调用云服务
-  http://localhost:8083/service/capi/sys/ws081/{"id":101}
+  http://localhost:8081/service/capi/sys/ws081/{"id":101}
   #调用云服务发生错误触发熔断
-  http://localhost:8083/service/capi/sys/ws081/{"id":101, "fallback":"A Test For Fallback"}
+  http://localhost:8081/service/capi/sys/ws081/{"id":101, "fallback":"A Test For Fallback"}
   
   #Hystrix监控
-  http://localhost:8083/hystrix
-  #在上述打开的页面中"Hystrix Dashboard"标题下方的栏目中输入"http://localhost:8083/hystrix.stream"，点击"Monitor Stream"按钮进入监控详细画面
+  http://localhost:8081/hystrix
+  #在上述打开的页面中"Hystrix Dashboard"标题下方的栏目中输入"http://localhost:8081/hystrix.stream"，点击"Monitor Stream"按钮进入监控详细画面
   
   #Actuator监控
   http://localhost:8084/actuator
