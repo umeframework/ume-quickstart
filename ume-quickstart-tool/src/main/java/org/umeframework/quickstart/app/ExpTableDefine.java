@@ -19,7 +19,9 @@ public class ExpTableDefine {
 	public static void main(String[] args) {
 
 		try {
-			new Excel2DbExporter().expTableDefine("input/exp-table-define");
+		    Excel2DbExporter e2e = new Excel2DbExporter();
+		    e2e.setDatabaseType("mysql");
+		    e2e.expTableDefine("input/exp-table-define");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

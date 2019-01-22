@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="log.path">log</Property>
+        <Property name="log.name">tool</Property>
+    </Properties>
+	<Appenders>
+        <Console name="consoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>%u,%d{yyyyMMdd.HH:mm:ss.SSS},%5p,%c{1},%X{thread},%X{system},%X{service},%X{client},%X{user}, %m%n</pattern>
+            </PatternLayout>
+        </Console>
+        <RollingFile name="fileAppender" fileName="${log.path}/${log.name}.log" filePattern="${log.path}/${date:yyyy-MM}/${log.name}-%d{yyyyMMdd}.log">
+            <PatternLayout>
+                <pattern>%u,%d{yyyyMMdd.HH:mm:ss.SSS},%5p,%c{1},%X{thread},%X{system},%X{service},%X{client},%X{user}, %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+    			<TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+    		</Policies>
+        </RollingFile>
+	</Appenders>
+	<Loggers>
+        <Logger name="org.hibernate.validator" level="error" />
+        <Logger name="org.jboss.logging" level="error" />
+        <Logger name="org.apache.ibatis" level="warn" />
+        <Logger name="org.mybatis.spring" level="warn" />
+        <Logger name="com.netflix" level="warn" />
+        <Logger name="de.codecentric" level="warn" />
+        <Logger name="org.apache.catalina" level="warn" />
+        <Logger name="org.apache.coyote" level="warn" />
+        <Logger name="org.apache.tomcat" level="warn" />
+        <Logger name="org.apache.coyote" level="warn" />
+        <Logger name="org.quartz" level="warn" />
+        <Logger name="org.springframework" level="info" />
+
+        <AsyncRoot level="warn" includeLocation="true">
+            <AppenderRef ref="consoleAppender" />
+            <AppenderRef ref="fileAppender" />
+        </AsyncRoot>	
+	</Loggers>
+</Configuration>
