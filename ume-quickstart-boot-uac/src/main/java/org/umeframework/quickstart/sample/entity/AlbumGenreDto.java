@@ -2,16 +2,10 @@
 package org.umeframework.quickstart.sample.entity;
 
 import java.io.Serializable;
-import org.umeframework.dora.validation.constraints.Size;
-import org.umeframework.dora.type.ColumnDesc;
-import org.umeframework.dora.validation.constraints.NotEmpty;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
-import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "唱片风格分类描述表"
@@ -20,8 +14,7 @@ import org.umeframework.dora.service.TableObject;
  */
 @Entity
 @Table(name="ALBUM_GENRE")
-@TableDesc(label="唱片风格分类描述表")
-public class AlbumGenreDto extends TableObject implements Serializable {
+public class AlbumGenreDto implements Serializable {
    /**
     * Default serial version code
     */
@@ -30,54 +23,75 @@ public class AlbumGenreDto extends TableObject implements Serializable {
    /**
     * 风格编码 
     */
-    @NotEmpty
-    @Size(min=2, max=2)
     @Id
-    @ColumnDesc(index=1, type="CHAR", label="风格编码")
-    @Column(name="GENRE_ID", nullable=false, length=2)
+    @Column(name="GENRE_ID", nullable=false, length=2, columnDefinition="CHAR(2) NOT NULL", table="ALBUM_GENRE")
     private String genreId;
 
    /**
     * 风格名称 
     */
-    @NotEmpty
-    @Size(max=32)
-    @ColumnDesc(index=2, type="VARCHAR", label="风格名称")
-    @Column(name="GENRE_NAME", nullable=false, length=32)
+    @Column(name="GENRE_NAME", nullable=false, length=32, columnDefinition="VARCHAR(32) NOT NULL", table="ALBUM_GENRE")
     private String genreName;
 
    /**
     * 风格描述 
     */
-    @Size(max=512)
-    @ColumnDesc(index=3, type="VARCHAR", label="风格描述")
-    @Column(name="COMMENT", nullable=true, length=512)
+    @Column(name="COMMENT", nullable=true, length=512, columnDefinition="VARCHAR(512)", table="ALBUM_GENRE")
     private String comment;
 
    /**
     * Create Author (default setting while insert)
     */
-    @ColumnDesc(index=(3 + 1), type="VARCHAR", label="createAuthor")
+    //@ColumnDesc(index=(3 + 1), type="VARCHAR", label="createAuthor")
     @Column(name="CREATE_AUTHOR", nullable=true, length=32)
     private String createAuthor;
    /**
     * Create Datetime (default setting while insert)
     */
-    @ColumnDesc(index=(3 + 2), type="TIMESTAMP", label="createDatetime")
+    //@ColumnDesc(index=(3 + 2), type="TIMESTAMP", label="createDatetime")
     @Column(name="CREATE_DATETIME", nullable=true)
     private java.sql.Timestamp createDatetime;
    /**
     * Update Author (refresh on each update)
     */
-    @ColumnDesc(index=(3 + 3), type="VARCHAR", label="updateAuthor")
+    //@ColumnDesc(index=(3 + 3), type="VARCHAR", label="updateAuthor")
     @Column(name="UPDATE_AUTHOR", nullable=true, length=32)
     private String updateAuthor;
    /**
     * Update Datetime (refresh on each update)
     */
-    @ColumnDesc(index=(3 + 4), type="TIMESTAMP", label="updateDatetime")
+    //@ColumnDesc(index=(3 + 4), type="TIMESTAMP", label="updateDatetime")
     @Column(name="UPDATE_DATETIME", nullable=true)
     private java.sql.Timestamp updateDatetime;
+	/**
+     * table schema, default is empty
+     */
+    private String theSchema;
+    /**
+     * table division, default is empty
+     */
+    private String theDivision;
+    /**
+     * SQL Order By condition parameter
+     */
+    private String theOrderByCondition;
+    /**
+     * SQL Group By condition parameter
+     */
+    private String theGroupByCondition;
+    /**
+     * Dynamic SQL query condition parameter
+     */
+    private String theSQLCondition;
+    /**
+     * fetch max size
+     */
+    private Integer theFetchSize;
+    /**
+     * fetch begin index
+     */
+    private Integer theFetchStart;
+
     /**
      *　Get the "风格编码"
      */
@@ -176,12 +190,125 @@ public class AlbumGenreDto extends TableObject implements Serializable {
         this.updateDatetime = updateDatetime;
     }
     /**
+     * @return the theSchema
+     */
+    public String getTheSchema() {
+        return theSchema;
+    }
+    /**
+     * @param theSchema
+     *            the theSchema to set
+     */
+    public void setTheSchema(
+            String theSchema) {
+        this.theSchema = theSchema;
+    }
+    /**
+     * @return the theDivision
+     */
+    public String getTheDivision() {
+        return theDivision;
+    }
+    /**
+     * @param theDivision
+     *            the theDivision to set
+     */
+    public void setTheDivision(
+            String theDivision) {
+        if (theDivision != null && theDivision.contains(" ")) {
+            throw new RuntimeException("Found illegal SQL characters input for setTheDivision:" + theDivision);
+        }
+        this.theDivision = theDivision;
+    }
+    /**
+     * @return the theOrderByCondition
+     */
+    public String getTheOrderByCondition() {
+        return theOrderByCondition;
+    }
+    /**
+     * @param theOrderByCondition
+     *            the theOrderByCondition to set
+     */
+    public void setTheOrderByCondition(
+            String theOrderByCondition) {
+
+        this.theOrderByCondition = theOrderByCondition;
+    }
+    /**
+     * @return the theFetchSize
+     */
+    public Integer getTheFetchSize() {
+        return theFetchSize;
+    }
+    /**
+     * @param theFetchSize
+     *            the theFetchSize to set
+     */
+    public void setTheFetchSize(
+            Integer theFetchSize) {
+        this.theFetchSize = theFetchSize;
+    }
+    /**
+     * @return the theGroupByCondition
+     */
+    public String getTheGroupByCondition() {
+        return theGroupByCondition;
+    }
+    /**
+     * @param theGroupByCondition
+     *            the theGroupByCondition to set
+     */
+    public void setTheGroupByCondition(
+            String theGroupByCondition) {
+        this.theGroupByCondition = theGroupByCondition;
+    }
+    /**
+     * @return the theSQLCondition
+     */
+    public String getTheSQLCondition() {
+        return theSQLCondition;
+    }
+    /**
+     * @param theSQLCondition the theSQLCondition to set
+     */
+    public void setTheSQLCondition(
+            String theSQLCondition) {
+        this.theSQLCondition = theSQLCondition;
+    }
+    /**
+     * @return the theFetchStart
+     */
+    public Integer getTheFetchStart() {
+        return theFetchStart;
+    }
+    /**
+     * @param theFetchStart the theFetchStart to set
+     */
+    public void setTheFetchStart(
+            Integer theFetchStart) {
+        this.theFetchStart = theFetchStart;
+    }
+    /**
+     * clearDefaultProperties
+     */
+    public void clearDefaultProperties() {
+        this.setTheSchema(null);
+        this.setTheDivision(null);
+        this.setTheOrderByCondition(null);
+        this.setTheGroupByCondition(null);
+        this.setTheSQLCondition(null);
+        this.setTheFetchSize(null);
+        this.setTheFetchStart(null);
+    }
+    /**
      * Create bean instance copy with selected properties
      * 
      * @param selectProperties
      *            - properties which copy to new instance
      * @return
      */
+    /* 
     public AlbumGenreDto copyFrom(
             Property... selectProperties) {
         if (selectProperties == null) {
@@ -190,11 +317,11 @@ public class AlbumGenreDto extends TableObject implements Serializable {
         AlbumGenreDto newInstance = new AlbumGenreDto();
         for (Property property : selectProperties) {
             String name = property.toString();
-            Object value = BeanUtil.getBeanProperty(this, name);
-            BeanUtil.setBeanProperty(newInstance, name, value);
+            Object value = org.umeframework.dora.bean.BeanUtil.BeanUtil.getBeanProperty(this, name);
+            org.umeframework.dora.bean.BeanUtil.BeanUtil.setBeanProperty(newInstance, name, value);
         }
         return newInstance;
-    }
+    } */
     
     /**
      * Constant declare: SQL ID in config file
@@ -224,6 +351,12 @@ public class AlbumGenreDto extends TableObject implements Serializable {
         public static final String createDatetime = "createDatetime";
         public static final String updateAuthor = "updateAuthor";
         public static final String updateDatetime = "updateDatetime";
+        public static final String theGroupByCondition = "theGroupByCondition";
+        public static final String theOrderByCondition = "theOrderByCondition";
+        public static final String theSchema = "theSchema";
+        public static final String theDivision = "theDivision";
+        public static final String theFetchSize = "theFetchSize";
+        public static final String theFetchStart = "theFetchStart";
     }
     
     /**

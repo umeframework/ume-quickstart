@@ -2,16 +2,10 @@
 package org.umeframework.quickstart.sample.entity;
 
 import java.io.Serializable;
-import org.umeframework.dora.validation.constraints.Size;
-import org.umeframework.dora.type.ColumnDesc;
-import org.umeframework.dora.validation.constraints.NotEmpty;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
-import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "唱片曲目信息表"
@@ -20,8 +14,7 @@ import org.umeframework.dora.service.TableObject;
  */
 @Entity
 @Table(name="ALBUM_TRACK")
-@TableDesc(label="唱片曲目信息表")
-public class AlbumTrackDto extends TableObject implements Serializable {
+public class AlbumTrackDto implements Serializable {
    /**
     * Default serial version code
     */
@@ -30,62 +23,82 @@ public class AlbumTrackDto extends TableObject implements Serializable {
    /**
     * 所属唱片 
     */
-    @NotEmpty
     @Id
-    @ColumnDesc(index=1, type="INT", label="所属唱片")
-    @Column(name="ALBUM_ID", nullable=false)
+    @Column(name="ALBUM_ID", nullable=false, columnDefinition="INT NOT NULL", table="ALBUM_TRACK")
     private Long albumId;
 
    /**
     * 曲目编号 
     */
-    @NotEmpty
     @Id
-    @ColumnDesc(index=2, type="INT", label="曲目编号")
-    @Column(name="TRACK_NO", nullable=false)
+    @Column(name="TRACK_NO", nullable=false, columnDefinition="INT NOT NULL", table="ALBUM_TRACK")
     private Integer trackNo;
 
    /**
     * 曲目名称 
     */
-    @NotEmpty
-    @Size(max=128)
-    @ColumnDesc(index=3, type="VARCHAR", label="曲目名称")
-    @Column(name="TRACK_NAME", nullable=false, length=128)
+    @Column(name="TRACK_NAME", nullable=false, length=128, columnDefinition="VARCHAR(128) NOT NULL", table="ALBUM_TRACK")
     private String trackName;
 
    /**
     * 播放时间 
     */
-    @Size(max=4, precision=2)
-    @ColumnDesc(index=4, type="DECIMAL", label="播放时间")
-    @Column(name="PLAY_TIME", nullable=true, length=4, scale=4, precision=2)
+    @Column(name="PLAY_TIME", nullable=true, length=4, scale=4, precision=2, columnDefinition="DECIMAL(4,2)", table="ALBUM_TRACK")
     private Double playTime;
 
    /**
     * Create Author (default setting while insert)
     */
-    @ColumnDesc(index=(4 + 1), type="VARCHAR", label="createAuthor")
+    //@ColumnDesc(index=(4 + 1), type="VARCHAR", label="createAuthor")
     @Column(name="CREATE_AUTHOR", nullable=true, length=32)
     private String createAuthor;
    /**
     * Create Datetime (default setting while insert)
     */
-    @ColumnDesc(index=(4 + 2), type="TIMESTAMP", label="createDatetime")
+    //@ColumnDesc(index=(4 + 2), type="TIMESTAMP", label="createDatetime")
     @Column(name="CREATE_DATETIME", nullable=true)
     private java.sql.Timestamp createDatetime;
    /**
     * Update Author (refresh on each update)
     */
-    @ColumnDesc(index=(4 + 3), type="VARCHAR", label="updateAuthor")
+    //@ColumnDesc(index=(4 + 3), type="VARCHAR", label="updateAuthor")
     @Column(name="UPDATE_AUTHOR", nullable=true, length=32)
     private String updateAuthor;
    /**
     * Update Datetime (refresh on each update)
     */
-    @ColumnDesc(index=(4 + 4), type="TIMESTAMP", label="updateDatetime")
+    //@ColumnDesc(index=(4 + 4), type="TIMESTAMP", label="updateDatetime")
     @Column(name="UPDATE_DATETIME", nullable=true)
     private java.sql.Timestamp updateDatetime;
+	/**
+     * table schema, default is empty
+     */
+    private String theSchema;
+    /**
+     * table division, default is empty
+     */
+    private String theDivision;
+    /**
+     * SQL Order By condition parameter
+     */
+    private String theOrderByCondition;
+    /**
+     * SQL Group By condition parameter
+     */
+    private String theGroupByCondition;
+    /**
+     * Dynamic SQL query condition parameter
+     */
+    private String theSQLCondition;
+    /**
+     * fetch max size
+     */
+    private Integer theFetchSize;
+    /**
+     * fetch begin index
+     */
+    private Integer theFetchStart;
+
     /**
      *　Get the "所属唱片"
      */
@@ -198,12 +211,125 @@ public class AlbumTrackDto extends TableObject implements Serializable {
         this.updateDatetime = updateDatetime;
     }
     /**
+     * @return the theSchema
+     */
+    public String getTheSchema() {
+        return theSchema;
+    }
+    /**
+     * @param theSchema
+     *            the theSchema to set
+     */
+    public void setTheSchema(
+            String theSchema) {
+        this.theSchema = theSchema;
+    }
+    /**
+     * @return the theDivision
+     */
+    public String getTheDivision() {
+        return theDivision;
+    }
+    /**
+     * @param theDivision
+     *            the theDivision to set
+     */
+    public void setTheDivision(
+            String theDivision) {
+        if (theDivision != null && theDivision.contains(" ")) {
+            throw new RuntimeException("Found illegal SQL characters input for setTheDivision:" + theDivision);
+        }
+        this.theDivision = theDivision;
+    }
+    /**
+     * @return the theOrderByCondition
+     */
+    public String getTheOrderByCondition() {
+        return theOrderByCondition;
+    }
+    /**
+     * @param theOrderByCondition
+     *            the theOrderByCondition to set
+     */
+    public void setTheOrderByCondition(
+            String theOrderByCondition) {
+
+        this.theOrderByCondition = theOrderByCondition;
+    }
+    /**
+     * @return the theFetchSize
+     */
+    public Integer getTheFetchSize() {
+        return theFetchSize;
+    }
+    /**
+     * @param theFetchSize
+     *            the theFetchSize to set
+     */
+    public void setTheFetchSize(
+            Integer theFetchSize) {
+        this.theFetchSize = theFetchSize;
+    }
+    /**
+     * @return the theGroupByCondition
+     */
+    public String getTheGroupByCondition() {
+        return theGroupByCondition;
+    }
+    /**
+     * @param theGroupByCondition
+     *            the theGroupByCondition to set
+     */
+    public void setTheGroupByCondition(
+            String theGroupByCondition) {
+        this.theGroupByCondition = theGroupByCondition;
+    }
+    /**
+     * @return the theSQLCondition
+     */
+    public String getTheSQLCondition() {
+        return theSQLCondition;
+    }
+    /**
+     * @param theSQLCondition the theSQLCondition to set
+     */
+    public void setTheSQLCondition(
+            String theSQLCondition) {
+        this.theSQLCondition = theSQLCondition;
+    }
+    /**
+     * @return the theFetchStart
+     */
+    public Integer getTheFetchStart() {
+        return theFetchStart;
+    }
+    /**
+     * @param theFetchStart the theFetchStart to set
+     */
+    public void setTheFetchStart(
+            Integer theFetchStart) {
+        this.theFetchStart = theFetchStart;
+    }
+    /**
+     * clearDefaultProperties
+     */
+    public void clearDefaultProperties() {
+        this.setTheSchema(null);
+        this.setTheDivision(null);
+        this.setTheOrderByCondition(null);
+        this.setTheGroupByCondition(null);
+        this.setTheSQLCondition(null);
+        this.setTheFetchSize(null);
+        this.setTheFetchStart(null);
+    }
+    /**
      * Create bean instance copy with selected properties
      * 
      * @param selectProperties
      *            - properties which copy to new instance
      * @return
      */
+    /* 
     public AlbumTrackDto copyFrom(
             Property... selectProperties) {
         if (selectProperties == null) {
@@ -212,11 +338,11 @@ public class AlbumTrackDto extends TableObject implements Serializable {
         AlbumTrackDto newInstance = new AlbumTrackDto();
         for (Property property : selectProperties) {
             String name = property.toString();
-            Object value = BeanUtil.getBeanProperty(this, name);
-            BeanUtil.setBeanProperty(newInstance, name, value);
+            Object value = org.umeframework.dora.bean.BeanUtil.BeanUtil.getBeanProperty(this, name);
+            org.umeframework.dora.bean.BeanUtil.BeanUtil.setBeanProperty(newInstance, name, value);
         }
         return newInstance;
-    }
+    } */
     
     /**
      * Constant declare: SQL ID in config file
@@ -247,6 +373,12 @@ public class AlbumTrackDto extends TableObject implements Serializable {
         public static final String createDatetime = "createDatetime";
         public static final String updateAuthor = "updateAuthor";
         public static final String updateDatetime = "updateDatetime";
+        public static final String theGroupByCondition = "theGroupByCondition";
+        public static final String theOrderByCondition = "theOrderByCondition";
+        public static final String theSchema = "theSchema";
+        public static final String theDivision = "theDivision";
+        public static final String theFetchSize = "theFetchSize";
+        public static final String theFetchStart = "theFetchStart";
     }
     
     /**

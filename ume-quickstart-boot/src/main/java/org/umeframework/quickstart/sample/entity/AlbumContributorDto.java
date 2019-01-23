@@ -2,16 +2,10 @@
 package org.umeframework.quickstart.sample.entity;
 
 import java.io.Serializable;
-import org.umeframework.dora.validation.constraints.Size;
-import org.umeframework.dora.type.ColumnDesc;
-import org.umeframework.dora.validation.constraints.NotEmpty;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
-import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "参加该唱片录音的艺术家信息管理表"
@@ -20,8 +14,7 @@ import org.umeframework.dora.service.TableObject;
  */
 @Entity
 @Table(name="ALBUM_CONTRIBUTOR")
-@TableDesc(label="参加该唱片录音的艺术家信息管理表")
-public class AlbumContributorDto extends TableObject implements Serializable {
+public class AlbumContributorDto implements Serializable {
    /**
     * Default serial version code
     */
@@ -30,64 +23,83 @@ public class AlbumContributorDto extends TableObject implements Serializable {
    /**
     * 唱片编号 
     */
-    @NotEmpty
     @Id
-    @ColumnDesc(index=1, type="INT", label="唱片编号")
-    @Column(name="ALBUM_ID", nullable=false)
+    @Column(name="ALBUM_ID", nullable=false, columnDefinition="INT NOT NULL", table="ALBUM_CONTRIBUTOR")
     private Long albumId;
 
    /**
     * 参与曲目 
     */
-    @NotEmpty
-    @Size(max=128)
     @Id
-    @ColumnDesc(index=2, type="INT", label="参与曲目")
-    @Column(name="TRACK_NO", nullable=false, length=128)
+    @Column(name="TRACK_NO", nullable=false, length=128, columnDefinition="INT(128) NOT NULL", table="ALBUM_CONTRIBUTOR")
     private Integer trackNo;
 
    /**
     * 艺术家 
     */
-    @NotEmpty
-    @Size(max=32)
     @Id
-    @ColumnDesc(index=3, type="VARCHAR", label="艺术家")
-    @Column(name="CONTRIBUTOR", nullable=false, length=32)
+    @Column(name="CONTRIBUTOR", nullable=false, length=32, columnDefinition="VARCHAR(32) NOT NULL", table="ALBUM_CONTRIBUTOR")
     private String contributor;
 
    /**
     * 备注 
     */
-    @Size(max=256)
-    @ColumnDesc(index=4, type="VARCHAR", label="备注")
-    @Column(name="COMMENT", nullable=true, length=256)
+    @Column(name="COMMENT", nullable=true, length=256, columnDefinition="VARCHAR(256)", table="ALBUM_CONTRIBUTOR")
     private String comment;
 
    /**
     * Create Author (default setting while insert)
     */
-    @ColumnDesc(index=(4 + 1), type="VARCHAR", label="createAuthor")
+    //@ColumnDesc(index=(4 + 1), type="VARCHAR", label="createAuthor")
     @Column(name="CREATE_AUTHOR", nullable=true, length=32)
     private String createAuthor;
    /**
     * Create Datetime (default setting while insert)
     */
-    @ColumnDesc(index=(4 + 2), type="TIMESTAMP", label="createDatetime")
+    //@ColumnDesc(index=(4 + 2), type="TIMESTAMP", label="createDatetime")
     @Column(name="CREATE_DATETIME", nullable=true)
     private java.sql.Timestamp createDatetime;
    /**
     * Update Author (refresh on each update)
     */
-    @ColumnDesc(index=(4 + 3), type="VARCHAR", label="updateAuthor")
+    //@ColumnDesc(index=(4 + 3), type="VARCHAR", label="updateAuthor")
     @Column(name="UPDATE_AUTHOR", nullable=true, length=32)
     private String updateAuthor;
    /**
     * Update Datetime (refresh on each update)
     */
-    @ColumnDesc(index=(4 + 4), type="TIMESTAMP", label="updateDatetime")
+    //@ColumnDesc(index=(4 + 4), type="TIMESTAMP", label="updateDatetime")
     @Column(name="UPDATE_DATETIME", nullable=true)
     private java.sql.Timestamp updateDatetime;
+	/**
+     * table schema, default is empty
+     */
+    private String theSchema;
+    /**
+     * table division, default is empty
+     */
+    private String theDivision;
+    /**
+     * SQL Order By condition parameter
+     */
+    private String theOrderByCondition;
+    /**
+     * SQL Group By condition parameter
+     */
+    private String theGroupByCondition;
+    /**
+     * Dynamic SQL query condition parameter
+     */
+    private String theSQLCondition;
+    /**
+     * fetch max size
+     */
+    private Integer theFetchSize;
+    /**
+     * fetch begin index
+     */
+    private Integer theFetchStart;
+
     /**
      *　Get the "唱片编号"
      */
@@ -200,12 +212,125 @@ public class AlbumContributorDto extends TableObject implements Serializable {
         this.updateDatetime = updateDatetime;
     }
     /**
+     * @return the theSchema
+     */
+    public String getTheSchema() {
+        return theSchema;
+    }
+    /**
+     * @param theSchema
+     *            the theSchema to set
+     */
+    public void setTheSchema(
+            String theSchema) {
+        this.theSchema = theSchema;
+    }
+    /**
+     * @return the theDivision
+     */
+    public String getTheDivision() {
+        return theDivision;
+    }
+    /**
+     * @param theDivision
+     *            the theDivision to set
+     */
+    public void setTheDivision(
+            String theDivision) {
+        if (theDivision != null && theDivision.contains(" ")) {
+            throw new RuntimeException("Found illegal SQL characters input for setTheDivision:" + theDivision);
+        }
+        this.theDivision = theDivision;
+    }
+    /**
+     * @return the theOrderByCondition
+     */
+    public String getTheOrderByCondition() {
+        return theOrderByCondition;
+    }
+    /**
+     * @param theOrderByCondition
+     *            the theOrderByCondition to set
+     */
+    public void setTheOrderByCondition(
+            String theOrderByCondition) {
+
+        this.theOrderByCondition = theOrderByCondition;
+    }
+    /**
+     * @return the theFetchSize
+     */
+    public Integer getTheFetchSize() {
+        return theFetchSize;
+    }
+    /**
+     * @param theFetchSize
+     *            the theFetchSize to set
+     */
+    public void setTheFetchSize(
+            Integer theFetchSize) {
+        this.theFetchSize = theFetchSize;
+    }
+    /**
+     * @return the theGroupByCondition
+     */
+    public String getTheGroupByCondition() {
+        return theGroupByCondition;
+    }
+    /**
+     * @param theGroupByCondition
+     *            the theGroupByCondition to set
+     */
+    public void setTheGroupByCondition(
+            String theGroupByCondition) {
+        this.theGroupByCondition = theGroupByCondition;
+    }
+    /**
+     * @return the theSQLCondition
+     */
+    public String getTheSQLCondition() {
+        return theSQLCondition;
+    }
+    /**
+     * @param theSQLCondition the theSQLCondition to set
+     */
+    public void setTheSQLCondition(
+            String theSQLCondition) {
+        this.theSQLCondition = theSQLCondition;
+    }
+    /**
+     * @return the theFetchStart
+     */
+    public Integer getTheFetchStart() {
+        return theFetchStart;
+    }
+    /**
+     * @param theFetchStart the theFetchStart to set
+     */
+    public void setTheFetchStart(
+            Integer theFetchStart) {
+        this.theFetchStart = theFetchStart;
+    }
+    /**
+     * clearDefaultProperties
+     */
+    public void clearDefaultProperties() {
+        this.setTheSchema(null);
+        this.setTheDivision(null);
+        this.setTheOrderByCondition(null);
+        this.setTheGroupByCondition(null);
+        this.setTheSQLCondition(null);
+        this.setTheFetchSize(null);
+        this.setTheFetchStart(null);
+    }
+    /**
      * Create bean instance copy with selected properties
      * 
      * @param selectProperties
      *            - properties which copy to new instance
      * @return
      */
+    /* 
     public AlbumContributorDto copyFrom(
             Property... selectProperties) {
         if (selectProperties == null) {
@@ -214,11 +339,11 @@ public class AlbumContributorDto extends TableObject implements Serializable {
         AlbumContributorDto newInstance = new AlbumContributorDto();
         for (Property property : selectProperties) {
             String name = property.toString();
-            Object value = BeanUtil.getBeanProperty(this, name);
-            BeanUtil.setBeanProperty(newInstance, name, value);
+            Object value = org.umeframework.dora.bean.BeanUtil.BeanUtil.getBeanProperty(this, name);
+            org.umeframework.dora.bean.BeanUtil.BeanUtil.setBeanProperty(newInstance, name, value);
         }
         return newInstance;
-    }
+    } */
     
     /**
      * Constant declare: SQL ID in config file
@@ -249,6 +374,12 @@ public class AlbumContributorDto extends TableObject implements Serializable {
         public static final String createDatetime = "createDatetime";
         public static final String updateAuthor = "updateAuthor";
         public static final String updateDatetime = "updateDatetime";
+        public static final String theGroupByCondition = "theGroupByCondition";
+        public static final String theOrderByCondition = "theOrderByCondition";
+        public static final String theSchema = "theSchema";
+        public static final String theDivision = "theDivision";
+        public static final String theFetchSize = "theFetchSize";
+        public static final String theFetchStart = "theFetchStart";
     }
     
     /**

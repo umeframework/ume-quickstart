@@ -2,17 +2,10 @@
 package org.umeframework.quickstart.uac.entity;
 
 import java.io.Serializable;
-import org.umeframework.dora.validation.constraints.Size;
-import org.umeframework.dora.type.ColumnDesc;
-import org.umeframework.dora.validation.constraints.TextFormat;
-import org.umeframework.dora.validation.constraints.NotEmpty;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
-import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "UME用户表"
@@ -21,8 +14,7 @@ import org.umeframework.dora.service.TableObject;
  */
 @Entity
 @Table(name="UME_USER")
-@TableDesc(label="UME用户表")
-public class UmeUserDto extends TableObject implements Serializable {
+public class UmeUserDto implements Serializable {
    /**
     * Default serial version code
     */
@@ -31,114 +23,120 @@ public class UmeUserDto extends TableObject implements Serializable {
    /**
     * 用户识别ID 
     */
-    @NotEmpty
-    @Size(max=32)
     @Id
-    @ColumnDesc(index=1, type="VARCHAR", label="用户识别ID")
-    @Column(name="USER_ID", nullable=false, length=32)
+    @Column(name="USER_ID", nullable=false, length=32, columnDefinition="VARCHAR(32) NOT NULL", table="UME_USER")
     private String userId;
 
    /**
     * 用户登录密码 
     */
-    @Size(max=32)
-    @ColumnDesc(index=2, type="VARCHAR", label="用户登录密码")
-    @Column(name="USER_PASSWORD", nullable=true, length=32)
+    @Column(name="USER_PASSWORD", nullable=true, length=32, columnDefinition="VARCHAR(32)", table="UME_USER")
     private String userPassword;
 
    /**
     * 用户名 
     */
-    @Size(max=256)
-    @ColumnDesc(index=3, type="VARCHAR", label="用户名")
-    @Column(name="USER_NAME", nullable=true, length=256)
+    @Column(name="USER_NAME", nullable=true, length=256, columnDefinition="VARCHAR(256)", table="UME_USER")
     private String userName;
 
    /**
     * 用户昵称 
     */
-    @Size(max=256)
-    @ColumnDesc(index=4, type="VARCHAR", label="用户昵称")
-    @Column(name="USER_NICK_NAME", nullable=true, length=256)
+    @Column(name="USER_NICK_NAME", nullable=true, length=256, columnDefinition="VARCHAR(256)", table="UME_USER")
     private String userNickName;
 
    /**
     * 用户性别 
     * 1:男 2:女
     */
-    @Size(max=1)
-    @ColumnDesc(index=5, type="INT", label="用户性别")
-    @Column(name="USER_GENDER", nullable=true, length=1)
+    @Column(name="USER_GENDER", nullable=true, length=1, columnDefinition="INT(1)", table="UME_USER")
     private Integer userGender;
 
    /**
     * 用户手机 
     */
-    @Size(max=16)
-    @TextFormat(TextFormat.Category.MobileNumber)
-    @ColumnDesc(index=6, type="VARCHAR", label="用户手机")
-    @Column(name="USER_MOBILE", nullable=true, length=16)
+    @Column(name="USER_MOBILE", nullable=true, length=16, columnDefinition="VARCHAR(16)", table="UME_USER")
     private String userMobile;
 
    /**
     * 用户邮箱 
     */
-    @Size(max=64)
-    @TextFormat(TextFormat.Category.Email)
-    @ColumnDesc(index=7, type="VARCHAR", label="用户邮箱")
-    @Column(name="USER_EMAIL", nullable=true, length=64)
+    @Column(name="USER_EMAIL", nullable=true, length=64, columnDefinition="VARCHAR(64)", table="UME_USER")
     private String userEmail;
 
    /**
     * 用户头像 
     * URL
     */
-    @Size(max=256)
-    @ColumnDesc(index=8, type="VARCHAR", label="用户头像")
-    @Column(name="USER_HEAD_IMAGE", nullable=true, length=256)
+    @Column(name="USER_HEAD_IMAGE", nullable=true, length=256, columnDefinition="VARCHAR(256)", table="UME_USER")
     private String userHeadImage;
 
    /**
     * 用户描述信息 
     */
-    @Size(max=256)
-    @ColumnDesc(index=9, type="VARCHAR", label="用户描述信息")
-    @Column(name="USER_DESC", nullable=true, length=256)
+    @Column(name="USER_DESC", nullable=true, length=256, columnDefinition="VARCHAR(256)", table="UME_USER")
     private String userDesc;
 
    /**
     * 用户账户状态 
     * 1:正常 2:关闭
     */
-    @Size(max=1)
-    @ColumnDesc(index=10, type="INT", label="用户账户状态")
-    @Column(name="USER_STATUS", nullable=true, length=1)
+    @Column(name="USER_STATUS", nullable=true, length=1, columnDefinition="INT(1)", table="UME_USER")
     private Integer userStatus;
 
    /**
     * Create Author (default setting while insert)
     */
-    @ColumnDesc(index=(10 + 1), type="VARCHAR", label="createAuthor")
+    //@ColumnDesc(index=(10 + 1), type="VARCHAR", label="createAuthor")
     @Column(name="CREATE_AUTHOR", nullable=true, length=32)
     private String createAuthor;
    /**
     * Create Datetime (default setting while insert)
     */
-    @ColumnDesc(index=(10 + 2), type="TIMESTAMP", label="createDatetime")
+    //@ColumnDesc(index=(10 + 2), type="TIMESTAMP", label="createDatetime")
     @Column(name="CREATE_DATETIME", nullable=true)
     private java.sql.Timestamp createDatetime;
    /**
     * Update Author (refresh on each update)
     */
-    @ColumnDesc(index=(10 + 3), type="VARCHAR", label="updateAuthor")
+    //@ColumnDesc(index=(10 + 3), type="VARCHAR", label="updateAuthor")
     @Column(name="UPDATE_AUTHOR", nullable=true, length=32)
     private String updateAuthor;
    /**
     * Update Datetime (refresh on each update)
     */
-    @ColumnDesc(index=(10 + 4), type="TIMESTAMP", label="updateDatetime")
+    //@ColumnDesc(index=(10 + 4), type="TIMESTAMP", label="updateDatetime")
     @Column(name="UPDATE_DATETIME", nullable=true)
     private java.sql.Timestamp updateDatetime;
+	/**
+     * table schema, default is empty
+     */
+    private String theSchema;
+    /**
+     * table division, default is empty
+     */
+    private String theDivision;
+    /**
+     * SQL Order By condition parameter
+     */
+    private String theOrderByCondition;
+    /**
+     * SQL Group By condition parameter
+     */
+    private String theGroupByCondition;
+    /**
+     * Dynamic SQL query condition parameter
+     */
+    private String theSQLCondition;
+    /**
+     * fetch max size
+     */
+    private Integer theFetchSize;
+    /**
+     * fetch begin index
+     */
+    private Integer theFetchStart;
+
     /**
      *　Get the "用户识别ID"
      */
@@ -335,12 +333,125 @@ public class UmeUserDto extends TableObject implements Serializable {
         this.updateDatetime = updateDatetime;
     }
     /**
+     * @return the theSchema
+     */
+    public String getTheSchema() {
+        return theSchema;
+    }
+    /**
+     * @param theSchema
+     *            the theSchema to set
+     */
+    public void setTheSchema(
+            String theSchema) {
+        this.theSchema = theSchema;
+    }
+    /**
+     * @return the theDivision
+     */
+    public String getTheDivision() {
+        return theDivision;
+    }
+    /**
+     * @param theDivision
+     *            the theDivision to set
+     */
+    public void setTheDivision(
+            String theDivision) {
+        if (theDivision != null && theDivision.contains(" ")) {
+            throw new RuntimeException("Found illegal SQL characters input for setTheDivision:" + theDivision);
+        }
+        this.theDivision = theDivision;
+    }
+    /**
+     * @return the theOrderByCondition
+     */
+    public String getTheOrderByCondition() {
+        return theOrderByCondition;
+    }
+    /**
+     * @param theOrderByCondition
+     *            the theOrderByCondition to set
+     */
+    public void setTheOrderByCondition(
+            String theOrderByCondition) {
+
+        this.theOrderByCondition = theOrderByCondition;
+    }
+    /**
+     * @return the theFetchSize
+     */
+    public Integer getTheFetchSize() {
+        return theFetchSize;
+    }
+    /**
+     * @param theFetchSize
+     *            the theFetchSize to set
+     */
+    public void setTheFetchSize(
+            Integer theFetchSize) {
+        this.theFetchSize = theFetchSize;
+    }
+    /**
+     * @return the theGroupByCondition
+     */
+    public String getTheGroupByCondition() {
+        return theGroupByCondition;
+    }
+    /**
+     * @param theGroupByCondition
+     *            the theGroupByCondition to set
+     */
+    public void setTheGroupByCondition(
+            String theGroupByCondition) {
+        this.theGroupByCondition = theGroupByCondition;
+    }
+    /**
+     * @return the theSQLCondition
+     */
+    public String getTheSQLCondition() {
+        return theSQLCondition;
+    }
+    /**
+     * @param theSQLCondition the theSQLCondition to set
+     */
+    public void setTheSQLCondition(
+            String theSQLCondition) {
+        this.theSQLCondition = theSQLCondition;
+    }
+    /**
+     * @return the theFetchStart
+     */
+    public Integer getTheFetchStart() {
+        return theFetchStart;
+    }
+    /**
+     * @param theFetchStart the theFetchStart to set
+     */
+    public void setTheFetchStart(
+            Integer theFetchStart) {
+        this.theFetchStart = theFetchStart;
+    }
+    /**
+     * clearDefaultProperties
+     */
+    public void clearDefaultProperties() {
+        this.setTheSchema(null);
+        this.setTheDivision(null);
+        this.setTheOrderByCondition(null);
+        this.setTheGroupByCondition(null);
+        this.setTheSQLCondition(null);
+        this.setTheFetchSize(null);
+        this.setTheFetchStart(null);
+    }
+    /**
      * Create bean instance copy with selected properties
      * 
      * @param selectProperties
      *            - properties which copy to new instance
      * @return
      */
+    /* 
     public UmeUserDto copyFrom(
             Property... selectProperties) {
         if (selectProperties == null) {
@@ -349,11 +460,11 @@ public class UmeUserDto extends TableObject implements Serializable {
         UmeUserDto newInstance = new UmeUserDto();
         for (Property property : selectProperties) {
             String name = property.toString();
-            Object value = BeanUtil.getBeanProperty(this, name);
-            BeanUtil.setBeanProperty(newInstance, name, value);
+            Object value = org.umeframework.dora.bean.BeanUtil.BeanUtil.getBeanProperty(this, name);
+            org.umeframework.dora.bean.BeanUtil.BeanUtil.setBeanProperty(newInstance, name, value);
         }
         return newInstance;
-    }
+    } */
     
     /**
      * Constant declare: SQL ID in config file
@@ -390,6 +501,12 @@ public class UmeUserDto extends TableObject implements Serializable {
         public static final String createDatetime = "createDatetime";
         public static final String updateAuthor = "updateAuthor";
         public static final String updateDatetime = "updateDatetime";
+        public static final String theGroupByCondition = "theGroupByCondition";
+        public static final String theOrderByCondition = "theOrderByCondition";
+        public static final String theSchema = "theSchema";
+        public static final String theDivision = "theDivision";
+        public static final String theFetchSize = "theFetchSize";
+        public static final String theFetchStart = "theFetchStart";
     }
     
     /**

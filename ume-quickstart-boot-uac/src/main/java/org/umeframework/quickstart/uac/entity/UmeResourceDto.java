@@ -2,16 +2,10 @@
 package org.umeframework.quickstart.uac.entity;
 
 import java.io.Serializable;
-import org.umeframework.dora.validation.constraints.Size;
-import org.umeframework.dora.type.ColumnDesc;
-import org.umeframework.dora.validation.constraints.NotEmpty;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
-import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "UME资源管理表"
@@ -20,8 +14,7 @@ import org.umeframework.dora.service.TableObject;
  */
 @Entity
 @Table(name="UME_RESOURCE")
-@TableDesc(label="UME资源管理表")
-public class UmeResourceDto extends TableObject implements Serializable {
+public class UmeResourceDto implements Serializable {
    /**
     * Default serial version code
     */
@@ -30,11 +23,8 @@ public class UmeResourceDto extends TableObject implements Serializable {
    /**
     * 资源ID 
     */
-    @NotEmpty
-    @Size(max=32)
     @Id
-    @ColumnDesc(index=1, type="VARCHAR", label="资源ID")
-    @Column(name="RES_ID", nullable=false, length=32)
+    @Column(name="RES_ID", nullable=false, length=32, columnDefinition="VARCHAR(32) NOT NULL", table="UME_RESOURCE")
     private String resId;
 
    /**
@@ -42,82 +32,98 @@ public class UmeResourceDto extends TableObject implements Serializable {
     * 0：系统运维
 90：菜单 91：URL  92：OTHER
     */
-    @NotEmpty
-    @Size(max=2)
     @Id
-    @ColumnDesc(index=2, type="INT", label="资源类型")
-    @Column(name="RES_TYPE", nullable=false, length=2)
+    @Column(name="RES_TYPE", nullable=false, length=2, columnDefinition="INT(2) NOT NULL", table="UME_RESOURCE")
     private Integer resType;
 
    /**
     * 资源名称 
     * 自定义名称
     */
-    @Size(max=64)
-    @ColumnDesc(index=3, type="VARCHAR", label="资源名称")
-    @Column(name="RES_NAME", nullable=true, length=64)
+    @Column(name="RES_NAME", nullable=true, length=64, columnDefinition="VARCHAR(64)", table="UME_RESOURCE")
     private String resName;
 
    /**
     * 资源分组 
     * 分组用名称
     */
-    @Size(max=64)
-    @ColumnDesc(index=4, type="VARCHAR", label="资源分组")
-    @Column(name="RES_GROUP", nullable=true, length=64)
+    @Column(name="RES_GROUP", nullable=true, length=64, columnDefinition="VARCHAR(64)", table="UME_RESOURCE")
     private String resGroup;
 
    /**
     * 资源链接 
     * 需要参照外部资源时可使用
     */
-    @Size(max=1024)
-    @ColumnDesc(index=5, type="VARCHAR", label="资源链接")
-    @Column(name="RES_LINK", nullable=true, length=1024)
+    @Column(name="RES_LINK", nullable=true, length=1024, columnDefinition="VARCHAR(1024)", table="UME_RESOURCE")
     private String resLink;
 
    /**
     * 资源排序序号 
     * 排序用
     */
-    @Size(max=8)
-    @ColumnDesc(index=6, type="INT", label="资源排序序号")
-    @Column(name="RES_INDEX", nullable=true, length=8)
+    @Column(name="RES_INDEX", nullable=true, length=8, columnDefinition="INT(8)", table="UME_RESOURCE")
     private Integer resIndex;
 
    /**
     * 资源状态 
     * 不可用:0
     */
-    @Size(max=1)
-    @ColumnDesc(index=7, type="INT", label="资源状态")
-    @Column(name="RES_STATUS", nullable=true, length=1)
+    @Column(name="RES_STATUS", nullable=true, length=1, columnDefinition="INT(1)", table="UME_RESOURCE")
     private Integer resStatus;
 
    /**
     * Create Author (default setting while insert)
     */
-    @ColumnDesc(index=(7 + 1), type="VARCHAR", label="createAuthor")
+    //@ColumnDesc(index=(7 + 1), type="VARCHAR", label="createAuthor")
     @Column(name="CREATE_AUTHOR", nullable=true, length=32)
     private String createAuthor;
    /**
     * Create Datetime (default setting while insert)
     */
-    @ColumnDesc(index=(7 + 2), type="TIMESTAMP", label="createDatetime")
+    //@ColumnDesc(index=(7 + 2), type="TIMESTAMP", label="createDatetime")
     @Column(name="CREATE_DATETIME", nullable=true)
     private java.sql.Timestamp createDatetime;
    /**
     * Update Author (refresh on each update)
     */
-    @ColumnDesc(index=(7 + 3), type="VARCHAR", label="updateAuthor")
+    //@ColumnDesc(index=(7 + 3), type="VARCHAR", label="updateAuthor")
     @Column(name="UPDATE_AUTHOR", nullable=true, length=32)
     private String updateAuthor;
    /**
     * Update Datetime (refresh on each update)
     */
-    @ColumnDesc(index=(7 + 4), type="TIMESTAMP", label="updateDatetime")
+    //@ColumnDesc(index=(7 + 4), type="TIMESTAMP", label="updateDatetime")
     @Column(name="UPDATE_DATETIME", nullable=true)
     private java.sql.Timestamp updateDatetime;
+	/**
+     * table schema, default is empty
+     */
+    private String theSchema;
+    /**
+     * table division, default is empty
+     */
+    private String theDivision;
+    /**
+     * SQL Order By condition parameter
+     */
+    private String theOrderByCondition;
+    /**
+     * SQL Group By condition parameter
+     */
+    private String theGroupByCondition;
+    /**
+     * Dynamic SQL query condition parameter
+     */
+    private String theSQLCondition;
+    /**
+     * fetch max size
+     */
+    private Integer theFetchSize;
+    /**
+     * fetch begin index
+     */
+    private Integer theFetchStart;
+
     /**
      *　Get the "资源ID"
      */
@@ -272,12 +278,125 @@ public class UmeResourceDto extends TableObject implements Serializable {
         this.updateDatetime = updateDatetime;
     }
     /**
+     * @return the theSchema
+     */
+    public String getTheSchema() {
+        return theSchema;
+    }
+    /**
+     * @param theSchema
+     *            the theSchema to set
+     */
+    public void setTheSchema(
+            String theSchema) {
+        this.theSchema = theSchema;
+    }
+    /**
+     * @return the theDivision
+     */
+    public String getTheDivision() {
+        return theDivision;
+    }
+    /**
+     * @param theDivision
+     *            the theDivision to set
+     */
+    public void setTheDivision(
+            String theDivision) {
+        if (theDivision != null && theDivision.contains(" ")) {
+            throw new RuntimeException("Found illegal SQL characters input for setTheDivision:" + theDivision);
+        }
+        this.theDivision = theDivision;
+    }
+    /**
+     * @return the theOrderByCondition
+     */
+    public String getTheOrderByCondition() {
+        return theOrderByCondition;
+    }
+    /**
+     * @param theOrderByCondition
+     *            the theOrderByCondition to set
+     */
+    public void setTheOrderByCondition(
+            String theOrderByCondition) {
+
+        this.theOrderByCondition = theOrderByCondition;
+    }
+    /**
+     * @return the theFetchSize
+     */
+    public Integer getTheFetchSize() {
+        return theFetchSize;
+    }
+    /**
+     * @param theFetchSize
+     *            the theFetchSize to set
+     */
+    public void setTheFetchSize(
+            Integer theFetchSize) {
+        this.theFetchSize = theFetchSize;
+    }
+    /**
+     * @return the theGroupByCondition
+     */
+    public String getTheGroupByCondition() {
+        return theGroupByCondition;
+    }
+    /**
+     * @param theGroupByCondition
+     *            the theGroupByCondition to set
+     */
+    public void setTheGroupByCondition(
+            String theGroupByCondition) {
+        this.theGroupByCondition = theGroupByCondition;
+    }
+    /**
+     * @return the theSQLCondition
+     */
+    public String getTheSQLCondition() {
+        return theSQLCondition;
+    }
+    /**
+     * @param theSQLCondition the theSQLCondition to set
+     */
+    public void setTheSQLCondition(
+            String theSQLCondition) {
+        this.theSQLCondition = theSQLCondition;
+    }
+    /**
+     * @return the theFetchStart
+     */
+    public Integer getTheFetchStart() {
+        return theFetchStart;
+    }
+    /**
+     * @param theFetchStart the theFetchStart to set
+     */
+    public void setTheFetchStart(
+            Integer theFetchStart) {
+        this.theFetchStart = theFetchStart;
+    }
+    /**
+     * clearDefaultProperties
+     */
+    public void clearDefaultProperties() {
+        this.setTheSchema(null);
+        this.setTheDivision(null);
+        this.setTheOrderByCondition(null);
+        this.setTheGroupByCondition(null);
+        this.setTheSQLCondition(null);
+        this.setTheFetchSize(null);
+        this.setTheFetchStart(null);
+    }
+    /**
      * Create bean instance copy with selected properties
      * 
      * @param selectProperties
      *            - properties which copy to new instance
      * @return
      */
+    /* 
     public UmeResourceDto copyFrom(
             Property... selectProperties) {
         if (selectProperties == null) {
@@ -286,11 +405,11 @@ public class UmeResourceDto extends TableObject implements Serializable {
         UmeResourceDto newInstance = new UmeResourceDto();
         for (Property property : selectProperties) {
             String name = property.toString();
-            Object value = BeanUtil.getBeanProperty(this, name);
-            BeanUtil.setBeanProperty(newInstance, name, value);
+            Object value = org.umeframework.dora.bean.BeanUtil.BeanUtil.getBeanProperty(this, name);
+            org.umeframework.dora.bean.BeanUtil.BeanUtil.setBeanProperty(newInstance, name, value);
         }
         return newInstance;
-    }
+    } */
     
     /**
      * Constant declare: SQL ID in config file
@@ -324,6 +443,12 @@ public class UmeResourceDto extends TableObject implements Serializable {
         public static final String createDatetime = "createDatetime";
         public static final String updateAuthor = "updateAuthor";
         public static final String updateDatetime = "updateDatetime";
+        public static final String theGroupByCondition = "theGroupByCondition";
+        public static final String theOrderByCondition = "theOrderByCondition";
+        public static final String theSchema = "theSchema";
+        public static final String theDivision = "theDivision";
+        public static final String theFetchSize = "theFetchSize";
+        public static final String theFetchStart = "theFetchStart";
     }
     
     /**
