@@ -21,6 +21,7 @@ public class ExpTableDefine {
 		try {
 		    Excel2DbExporter e2e = new Excel2DbExporter();
 		    e2e.setDatabaseType("mysql");
+            //e2e.setDatabaseType("oracle");
 		    e2e.expTableDefine("input/exp-table-define");
 		} catch (Throwable e) {
 			e.printStackTrace();
