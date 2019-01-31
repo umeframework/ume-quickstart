@@ -10,6 +10,7 @@
                 <pattern>%u,%d{yyyyMMdd.HH:mm:ss.SSS},%5p,%c{1},%X{thread},%X{system},%X{service},%X{client},%X{user}, %m%n</pattern>
             </PatternLayout>
         </Console>
+        <!-- 
         <RollingFile name="fileAppender" fileName="${log.path}/${log.name}.log" filePattern="${log.path}/${date:yyyy-MM}/${log.name}-%d{yyyyMMdd}.log">
             <PatternLayout>
                 <pattern>%u,%d{yyyyMMdd.HH:mm:ss.SSS},%5p,%c{1},%X{thread},%X{system},%X{service},%X{client},%X{user}, %m%n</pattern>
@@ -18,6 +19,7 @@
     			<TimeBasedTriggeringPolicy modulate="true" interval="1"/>
     		</Policies>
         </RollingFile>
+         -->
 	</Appenders>
 	<Loggers>
         <Logger name="org.hibernate.validator" level="error" />
@@ -35,7 +37,9 @@
 
         <AsyncRoot level="warn" includeLocation="true">
             <AppenderRef ref="consoleAppender" />
+            <!-- 
             <AppenderRef ref="fileAppender" />
+             -->
         </AsyncRoot>	
 	</Loggers>
 </Configuration>
