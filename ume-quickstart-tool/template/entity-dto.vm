@@ -29,7 +29,7 @@ $classImport
 #end
 
 /**
- * 数据表"$dto.className"映射的实体类<br>
+ * 数据表"$dto.className"实体类<br>
  *
  * @author Generator
  */
