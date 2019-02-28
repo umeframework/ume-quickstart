@@ -22,9 +22,10 @@ public class CreateEntitySqlMap {
 		try {
 			String path = "input/design-table";
 			
-			TableExcelGenerator genMysql = new TableExcelGenerator();
-            genMysql.setGenerateDefaultTableField(true);
-			genMysql.execute(path);
+			TableExcelGenerator gen = new TableExcelGenerator("mysql");
+			gen.getEntityGenerator().getDtoBuilder().setGenDtoExtension("Dto");
+			gen.setGenerateDefaultTableField(true);
+			gen.execute(path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

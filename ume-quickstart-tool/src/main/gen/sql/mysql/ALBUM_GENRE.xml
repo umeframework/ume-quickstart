@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.umeframework.quickstart.sample.entity">
+  <!-- 唱片风格分类描述表 [ALBUM_GENRE] -->
+
+  <!-- Insert -->
+  <insert id="ALBUM_GENRE_INSERT" parameterType="$dto.classPackage.AlbumGenreDto">
+    INSERT INTO ALBUM_GENRE (
+      GENRE_ID
+      ,GENRE_NAME
+      ,COMMENT
+      ,CREATE_AUTHOR
+      ,CREATE_DATETIME
+      ,UPDATE_AUTHOR
+      ,UPDATE_DATETIME
+    ) VALUES (
+      #{genreId}
+      ,#{genreName}
+      ,#{comment}
+      ,#{createAuthor}
+      ,current_timestamp()
+      ,#{updateAuthor}
+      ,current_timestamp()
+    )
+  </insert>
+  
+  <!-- Update -->
+  <update id="ALBUM_GENRE_UPDATE" parameterType="$dto.classPackage.AlbumGenreDto">
+    UPDATE ALBUM_GENRE
+    <set>
+      UPDATE_DATETIME = current_timestamp(),
+      <if test="genreName!=null">GENRE_NAME = #{genreName},</if>
+      <if test="comment!=null">COMMENT = #{comment},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+    </set>
+    WHERE 
+       GENRE_ID = #{genreId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Update Any -->
+  <update id="ALBUM_GENRE_UPDATE_ANY" parameterType="$dto.classPackage.AlbumGenreDto">
+    UPDATE ALBUM_GENRE
+    <set>
+      UPDATE_DATETIME = current_timestamp(),
+      <if test="genreName!=null">GENRE_NAME = #{genreName},</if>
+      <if test="comment!=null">COMMENT = #{comment},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+    </set>
+    WHERE 1 = 1 
+      <if test="genreId != null">AND GENRE_ID = #{genreId}</if>
+      <if test="genreName != null">AND GENRE_NAME = #{genreName}</if>
+      <if test="comment != null">AND COMMENT = #{comment}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+
+  <!-- Update Fully -->
+  <update id="ALBUM_GENRE_UPDATE_FULLY" parameterType="$dto.classPackage.AlbumGenreDto">
+    UPDATE ALBUM_GENRE
+    SET
+      GENRE_NAME = #{genreName}
+      ,COMMENT = #{comment}
+      ,CREATE_AUTHOR = #{createAuthor}
+      ,CREATE_DATETIME = #{createDatetime}
+      ,UPDATE_AUTHOR = #{updateAuthor}
+      ,UPDATE_DATETIME = current_timestamp() 
+    WHERE 
+       GENRE_ID = #{genreId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete -->
+  <delete id="ALBUM_GENRE_DELETE" parameterType="$dto.classPackage.AlbumGenreDto">
+    DELETE FROM ALBUM_GENRE
+    WHERE
+       GENRE_ID = #{genreId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete Any -->
+  <delete id="ALBUM_GENRE_DELETE_ANY" parameterType="$dto.classPackage.AlbumGenreDto">
+    DELETE FROM ALBUM_GENRE
+    WHERE 1 = 1 
+      <if test="genreId != null">AND GENRE_ID = #{genreId}</if>
+      <if test="genreName != null">AND GENRE_NAME = #{genreName}</if>
+      <if test="comment != null">AND COMMENT = #{comment}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+  
+  <!-- Find -->
+  <select id="ALBUM_GENRE_FIND" resultType="$dto.classPackage.AlbumGenreDto">
+    SELECT
+      GENRE_ID AS "genreId" 
+      ,GENRE_NAME AS "genreName" 
+      ,COMMENT AS "comment" 
+      ,CREATE_AUTHOR AS "createAuthor"
+      ,CREATE_DATETIME AS "createDatetime"
+      ,UPDATE_AUTHOR AS "updateAuthor"
+      ,UPDATE_DATETIME AS "updateDatetime"
+    FROM ALBUM_GENRE
+    WHERE
+       GENRE_ID = #{genreId} 
+  </select>
+
+  <!-- Find For Update -->
+  <select id="ALBUM_GENRE_FIND_FOR_UPDATE" resultType="$dto.classPackage.AlbumGenreDto">
+    SELECT
+      GENRE_ID AS "genreId"
+      ,GENRE_NAME AS "genreName"
+      ,COMMENT AS "comment"
+      ,CREATE_AUTHOR AS "createAuthor"
+      ,CREATE_DATETIME AS "createDatetime"
+      ,UPDATE_AUTHOR AS "updateAuthor"
+      ,UPDATE_DATETIME AS "updateDatetime"
+    FROM ALBUM_GENRE
+    WHERE
+       GENRE_ID = #{genreId} 
+    FOR UPDATE
+  </select>
+
+  <!-- Find List -->
+  <select id="ALBUM_GENRE_FIND_LIST" resultType="$dto.classPackage.AlbumGenreDto">
+    SELECT
+      GENRE_ID AS "genreId"
+      ,GENRE_NAME AS "genreName"
+      ,COMMENT AS "comment"
+      ,CREATE_AUTHOR AS "createAuthor"
+      ,CREATE_DATETIME AS "createDatetime"
+      ,UPDATE_AUTHOR AS "updateAuthor"
+      ,UPDATE_DATETIME AS "updateDatetime"
+    FROM ALBUM_GENRE
+    WHERE 1 = 1 
+      <if test="genreId != null">AND GENRE_ID = #{genreId}</if>
+      <if test="genreName != null">AND GENRE_NAME = #{genreName}</if>
+      <if test="comment != null">AND COMMENT = #{comment}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
+      <if test="_theOrderByCondition != null"> ORDER BY ${_theOrderByCondition}</if>
+      <if test="_theFetchSize != null">LIMIT ${_theFetchStart}, ${_theFetchSize}</if>
+  </select>
+
+  <!-- Find List Like -->
+  <select id="ALBUM_GENRE_FIND_LIST_LIKE" resultType="$dto.classPackage.AlbumGenreDto">
+    SELECT
+      GENRE_ID AS "genreId"
+      ,GENRE_NAME AS "genreName"
+      ,COMMENT AS "comment"
+      ,CREATE_AUTHOR AS "createAuthor"
+      ,CREATE_DATETIME AS "createDatetime"
+      ,UPDATE_AUTHOR AS "updateAuthor"
+      ,UPDATE_DATETIME AS "updateDatetime"
+    FROM ALBUM_GENRE
+    WHERE 1 = 1 
+      <if test="genreId != null">AND GENRE_ID LIKE CONCAT('%', #{genreId}, '%')</if>
+      <if test="genreName != null">AND GENRE_NAME LIKE CONCAT('%', #{genreName}, '%')</if>
+      <if test="comment != null">AND COMMENT LIKE CONCAT('%', #{comment}, '%')</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME LIKE CONCAT('%', #{createDatetime}, '%')</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME LIKE CONCAT('%', #{updateDatetime}, '%')</if>
+      <if test="_theOrderByCondition != null"> ORDER BY ${_theOrderByCondition}</if>
+      <if test="_theFetchSize != null">LIMIT ${_theFetchStart}, ${_theFetchSize}</if>
+  </select>
+  
+  <!-- Count -->
+  <select id="ALBUM_GENRE_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM ALBUM_GENRE
+    WHERE 1 = 1 
+      <if test="genreId != null">AND GENRE_ID = #{genreId}</if>
+      <if test="genreName != null">AND GENRE_NAME = #{genreName}</if>
+      <if test="comment != null">AND COMMENT = #{comment}</if>
+  </select>
+
+
+</mapper>
+
