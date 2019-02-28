@@ -1,6 +1,7 @@
 package org.umeframework.quickstart.app;
 
 import org.umeframework.dora.tool.gen.ServiceGenerator;
+import org.umeframework.dora.tool.poi.TypeMapper;
 
 /**
  * 读取并解析指定的输入目录下的Service设计文档，生成如下的源码：<br>
@@ -18,7 +19,7 @@ public class CreateServiceInterface {
 	public static void main(String[] args) {
 		try {
 			String inputPath = "input/design-service";
-			new ServiceGenerator().execute(inputPath);
+			new ServiceGenerator(new TypeMapper()).execute(inputPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package org.umeframework.quickstart.app;
 
 import org.umeframework.dora.tool.gen.db.TableExcelGenerator;
+import org.umeframework.dora.tool.poi.TypeMapper;
  
 /**
  * 读取并解析指定的输入目录下的所有数据库设计文档，生成如下的源码：<br>
@@ -22,9 +23,9 @@ public class CreateEntitySqlMap {
 		try {
 			String path = "input/design-table";
 			
-			TableExcelGenerator gen = new TableExcelGenerator("mysql");
+			TableExcelGenerator gen = new TableExcelGenerator(new TypeMapper(), "mysql");
 			gen.getEntityGenerator().getDtoBuilder().setGenDtoExtension("Dto");
-			gen.setGenerateDefaultTableField(true);
+			gen.getEntityGenerator().setGenerateDefaultTableField(true);
 			gen.execute(path);
 		} catch (Exception e) {
 			e.printStackTrace();
