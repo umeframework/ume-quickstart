@@ -1,5 +1,6 @@
 package ${dto.tableCrudApiPackage};
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Resource;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ${dto.tableDtoPackage}.${dto.classId};
+import ${dto.tableDtoPackage}.${dto.tableDtoClass};
+import ${dto.tableDtoPackage}.${dto.tableDtoConditionClass};
 import ${dto.tableCrudServiceInterfacePackage}.${dto.tableCrudServiceInterface};
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,8 +22,8 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * ${dto.TblName}:${dto.tblId} CRUD service implementation.<br>
- *
- * @author UME-Generator
+ * 
+ * @author Generator
  */
 @CrossOrigin
 @Api(value="${dto.TblName}Controller",tags={"${dto.TblName} CRUD API"})
@@ -37,141 +39,162 @@ public class ${dto.tableCrudApiClass} {
 
 #if(${dto.primaryKeyFieldList.size()} > 0)
     /**
-     * 实体创建<br>
+     * 创建记录<br>
      * 
-     * @param entity - entity instance
+     * @param entity
      */
-	@ApiOperation(value = "实体创建")
+	@ApiOperation(value = "创建记录")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
-	public Integer create(${dto.classId} entity) {
-        return service.create(entity);
+	public Integer create(${dto.tableDtoClass} entity) {
+	    doValidate(entity);
+        return service.insert(entity);
     }
     
     /**
-     * 实体创建(多条)<br>
+     * 批量创建记录<br>
      * 
-     * @param entity - entity instance
+     * @param entities
      */
-	@ApiOperation(value = "实体创建(多条)")
+	@ApiOperation(value = "批量创建记录)")
 	@RequestMapping(value = "/create-list", method = RequestMethod.POST)
 	@Transactional
-    public List<Integer> createList(List<${dto.classId}> entityList) {
-        return service.createList(entityList);
+    public List<Integer> createList(List<${dto.tableDtoClass}> entities) {
+        List<Integer> result = new ArrayList<Integer>();
+        if (entities != null) {
+            for (${dto.tableDtoClass} entity : entities) {
+	            doValidate(entity);
+                result.add(service.insert(entity));
+            }
+        }
+        return result;
     }
     
     /**
-     * 实体更新或创建<br>
+     * 更新记录<br>
      * 
-     * @param entity - entity instance
+     * @param entity
      */
-	@ApiOperation(value = "实体更新或创建")
-	@RequestMapping(value = "/create-update", method = RequestMethod.POST)
-	@Transactional
-    public Integer createOrUpdate(${dto.classId} entity) {
-        return service.createOrUpdate(entity);
-    }
-    
-    /**
-     * 实体更新或创建(多条)<br>
-     * 
-     * @param entity - entity instance
-     */
-	@ApiOperation(value = "实体更新或创建(多条)")
-	@RequestMapping(value = "/create-update-list", method = RequestMethod.POST)
-	@Transactional
-    public List<Integer> createOrUpdateList(List<${dto.classId}> entityList) {
-        return service.createOrUpdateList(entityList);
-    }
-    
-    /**
-     * 实体更新<br>
-     * 
-     * @param entity - entity instance
-     */
-	@ApiOperation(value = "实体更新")
+	@ApiOperation(value = "更新记录")
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@Transactional
-    public Integer update(${dto.classId} entity) {
-        return service.update(entity);
+    public Integer update(${dto.tableDtoClass} entity) {
+	    doValidate(entity);
+        return service.updateByPrimaryKeySelective(entity);
     }
     
     /**
-     * 实体更新(多条)<br>
+     * 批量更新记录<br>
      * 
-     * @param entity - entity instance
+     * @param entities
      */
-	@ApiOperation(value = "实体更新(多条)")
+	@ApiOperation(value = "批量更新记录")
 	@RequestMapping(value = "/update-list", method = RequestMethod.POST)
 	@Transactional
-    public List<Integer> updateList(List<${dto.classId}> entityList) {
-        return service.updateList(entityList);
+    public List<Integer> updateList(List<${dto.tableDtoClass}> entities) {
+        List<Integer> result = new ArrayList<Integer>();
+        if (entities != null) {
+            for (${dto.tableDtoClass} entity : entities) {
+                doValidate(entity);
+                result.add(service.updateByPrimaryKeySelective(entity));
+            }
+        }
+        return result;
     }
     
     /**
-     * 实体删除<br>
+     * 删除记录<br>
      * 
-     * @param entity - entity instance
+     * @param entity
      */
-	@ApiOperation(value = "实体删除")
+	@ApiOperation(value = "删除记录")
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@Transactional
-    public Integer delete(${dto.classId} entity) {
-        return service.delete(entity);
+    public Integer delete(${dto.tableDtoClass} entity) {
+        return service.deleteByPrimaryKey(entity);
     }
     
     /**
-     * 实体删除(多条)<br>
+     * 批量删除记录<br>
      * 
-     * @param entity - entity instance
+     * @param entities
      */
-	@ApiOperation(value = "实体删除(多条)")
+	@ApiOperation(value = "批量删除记录")
 	@RequestMapping(value = "/delete-list", method = RequestMethod.POST)
 	@Transactional
-    public List<Integer> deleteList(List<${dto.classId}> entityList) {
-        return service.deleteList(entityList);
+    public List<Integer> deleteList(List<${dto.tableDtoClass}> entities) {
+        List<Integer> result = new ArrayList<Integer>();
+        if (entities != null) {
+            for (${dto.tableDtoClass} entity : entities) {
+                result.add(service.deleteByPrimaryKey(entity));
+            }
+        }
+        return result;
     }
 
     /**
-     * 实体查询(主键匹配)<br>
+     * 根据主键查询记录<br>
      * 
-     * @param entity - entity instance
+     * @param entity
      */
-	@ApiOperation(value = "实体查询")
-	@RequestMapping(value = "/find", method = RequestMethod.POST)
-    public ${dto.classId} find(${dto.classId} criteria) {
-        return service.find(criteria);
+	@ApiOperation(value = "根据主键查询记录")
+	@RequestMapping(value = "/select-by-primary-key", method = RequestMethod.POST)
+    public ${dto.tableDtoClass} selectByPrimaryKey(${dto.tableDtoClass} entity) {
+        return service.selectByPrimaryKey(entity);
     }
-#end    
+
     /**
-     * 实体查询(精确匹配返回列表)<br>
+     * 根据主键查询记录并锁定<br>
      * 
-     * @param criteria - criteria instance
+     * @param entity
      */
-	@ApiOperation(value = "实体查询(精确匹配返回列表)")
-	@RequestMapping(value = "/find-list", method = RequestMethod.POST)
-    public List<${dto.classId}> findList(${dto.classId} criteria) {
-        return service.findList(criteria);
+	@ApiOperation(value = "根据主键查询记录并锁定")
+	@RequestMapping(value = "/select-by-primary-key-for-update", method = RequestMethod.POST)
+    public ${dto.tableDtoClass} selectByPrimaryKeyForUpdate(${dto.tableDtoClass} entity) {
+        return service.selectByPrimaryKeyForUpdate(entity);
+    }
+#end
+
+    /**
+     * 根据[${dto.tableDtoConditionClass}]条件对象查询实体列表<br>
+     * 
+     * @param condition
+     */
+	@ApiOperation(value = "根据[${dto.tableDtoConditionClass}]条件对象查询实体列表")
+	@RequestMapping(value = "/select-by-condition", method = RequestMethod.POST)
+    public List<${dto.tableDtoClass}> selectByCondition(${dto.tableDtoConditionClass}[] condition) {
+        return service.selectByCondition(condition);
     }
     /**
-     * 实体查询(模糊匹配返回列表)<br>
+     * 根据[${dto.tableDtoClass}]条件对象查询实体列表<br>
      * 
-     * @param criteria - entity criteria
+     * @param entity
      */
-	@ApiOperation(value = "实体查询(模糊匹配返回列表)")
-	@RequestMapping(value = "/find-list-like", method = RequestMethod.POST)
-    public List<${dto.classId}> findListLike(${dto.classId} criteria) {
-        return service.findListLike(criteria);
+	@ApiOperation(value = "根据[${dto.tableDtoClass}]条件对象查询实体列表")
+	@RequestMapping(value = "/select-by-entity", method = RequestMethod.POST)
+    public List<${dto.tableDtoClass}> selectByEntity(${dto.tableDtoClass}[] entity) {
+        return service.selectByEntity(entity);
+    }
+
+    /**
+     * 根据[${dto.tableDtoConditionClass}]条件对象统计件数<br>
+     * 
+     * @param condition
+     */
+	@ApiOperation(value = "根据[${dto.tableDtoConditionClass}]条件对象统计件数")
+	@RequestMapping(value = "/count-by-condition", method = RequestMethod.POST)
+    public Integer countByCondition(${dto.tableDtoConditionClass}[] condition) {
+        return service.countByCondition(condition);
     }
     /**
-     * 件数统计<br>
+     * 根据"${dto.tableDtoClass}"条件对象统计件数<br>
      * 
-     * @param criteria - criteria instance
+     * @param entity
      */
-	@ApiOperation(value = "件数统计")
-	@RequestMapping(value = "/count", method = RequestMethod.POST)
-    public Integer count(${dto.classId} criteria) {
-        return service.count(criteria);
+	@ApiOperation(value = "根据[${dto.tableDtoClass}]条件对象统计件数")
+	@RequestMapping(value = "/count-by-entity", method = RequestMethod.POST)
+    public Integer countByEntity(${dto.tableDtoClass}[] entity) {
+        return service.countByEntity(entity);
     }
 
     /**
@@ -179,12 +202,12 @@ public class ${dto.tableCrudApiClass} {
      * 
      * @param entity
      */
-    public void doValidate(${dto.classId} entity) {
+    public void doValidate(${dto.tableDtoClass} entity) {
         Validator validator = validatorFactory.getValidator();
-        Iterator<ConstraintViolation<${dto.classId}>> violations = validator.validate(entity).iterator();
+        Iterator<ConstraintViolation<${dto.tableDtoClass}>> violations = validator.validate(entity).iterator();
         StringBuilder msg = new StringBuilder();
         while (violations.hasNext()) {
-            ConstraintViolation<${dto.classId}> violation = violations.next();
+            ConstraintViolation<${dto.tableDtoClass}> violation = violations.next();
             String prop = violation.getPropertyPath().toString();
             String message = violation.getMessage();
             msg.append(prop);

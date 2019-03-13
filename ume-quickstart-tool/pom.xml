@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- Using repository of UME@ https://github.com/ume-team -->
 	<repositories>
 		<repository>
 			<id>umestore</id>
 			<url>https://raw.githubusercontent.com/umeframework/umestore/master</url>
 		</repository>
 	</repositories>
+
 	<properties>
 		<version.dora>2.0.0.RELEASE</version.dora>
 		<version.java>1.8</version.java>
@@ -22,18 +22,9 @@
 		<version.commons-dbcp>1.4</version.commons-dbcp>
         <version.commons-dbcp2>2.3.0</version.commons-dbcp2>
 		<version.commons-digester>2.1</version.commons-digester>
-		<version.commons-fileupload>1.3.2</version.commons-fileupload>
 		<version.commons-io>2.5</version.commons-io>
 		<version.commons-lang>2.5</version.commons-lang>
 		<version.commons-logging>1.2</version.commons-logging>
-		<version.commons-pool>1.6</version.commons-pool>
-		<version.commons-validator>1.5.0</version.commons-validator>
-		<version.commons-beanutils>1.9.3</version.commons-beanutils>
-		<version.commons-codec>1.10</version.commons-codec>
-		<version.commons-collections>3.2.2</version.commons-collections>
-        <version.commons-collections4>4.1</version.commons-collections4>
-		<version.commons-dbcp>1.4</version.commons-dbcp>
-		<version.commons-digester>2.1</version.commons-digester>
 		<version.commons-pool>1.6</version.commons-pool>
 		<version.commons-validator>1.5.0</version.commons-validator>
 		<version.velocity>1.7</version.velocity>
@@ -80,11 +71,6 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>${version.commons-beanutils}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>${version.commons-codec}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>

@@ -1,9 +1,11 @@
 #set($var_LeftBrackets="(")
+#set($var_theOrderByCondition="_orderByClause")
 
 package ${dto.tableDtoPackage};
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * 数据表"$dto.className"Criteria类<br>
@@ -18,11 +20,12 @@ public class ${dto.tableDtoCriteriaClass} {
     public ${dto.tableDtoCriteriaClass}() {
         oredCriteria = new ArrayList<Criteria>();
     }
+
     public void setOrderByClause(String orderByClause) {
-        this.orderByClause = orderByClause;
+        this.orderByClause = StringEscapeUtils.escapeSql(orderByClause);
     }
     public String getOrderByClause() {
-        return orderByClause;
+        return StringEscapeUtils.escapeSql(orderByClause);
     }
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -227,5 +230,108 @@ public class ${dto.tableDtoCriteriaClass} {
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
         }
+    }
+    
+    /**
+     * addCondition<br>
+     * @param conditions
+     * @return this
+     */
+    public ${dto.tableDtoCriteriaClass} addCondition(${dto.tableDtoConditionClass}[] conditions) {
+        if (conditions != null) {
+            for (${dto.tableDtoConditionClass} e : conditions) {
+                addCondition(e);
+            }
+        }
+        return this;
+    }
+#set($var_InParam="condition")
+#set($var_and="and")
+    /**
+     * addCondition<br>
+     * @param ${var_InParam}
+     * @return this
+     */
+    public ${dto.tableDtoCriteriaClass} addCondition(${dto.tableDtoConditionClass} ${var_InParam}) {
+        Criteria ac = this.createCriteria();
+
+#foreach ( $field in $dto.fieldList )
+#set($var_OptrList="IsNull,IsNotNull")
+#foreach ($var_Optr in $var_OptrList.split(","))
+        if (${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr}) {
+            ac.${var_and}${field.fieldIdCap}${var_Optr}();
+        }
+#end
+#set($var_OptrList="EqualTo,NotEqualTo,GreaterThan,GreaterThanOrEqualTo,LessThan,LessThanOrEqualTo,In,NotIn")
+#foreach ($var_Optr in $var_OptrList.split(","))
+        if (${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr} != null) {
+            ac.${var_and}${field.fieldIdCap}${var_Optr}(${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr});
+        }
+#end
+#if (${field.fieldType} == "String")
+#set($var_OptrList="Like,NotLike")
+#foreach ($var_Optr in $var_OptrList.split(","))
+        if (${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr} != null) {
+            ac.${var_and}${field.fieldIdCap}${var_Optr}(${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr});
+        }
+#end
+#end
+#set($var_OptrList="Between,NotBetween")
+#foreach ($var_Optr in $var_OptrList.split(","))
+        if (${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr} != null && ${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr}.size() == 2) {
+            ac.${var_and}${field.fieldIdCap}${var_Optr}(${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr}.get(0), ${var_InParam}.${var_and}${field.fieldIdCap}${var_Optr}.get(1));
+        }
+#end
+#end
+
+        if (!this.distinct && ${var_InParam}.distinct) {
+            this.setDistinct(${var_InParam}.distinct);
+        }
+        if (${var_InParam}.orderByClause != null) {
+            if (${var_InParam}.orderByClause.trim().startsWith(",")) {
+                this.setOrderByClause(this.getOrderByClause() + ${var_InParam}.orderByClause.trim());
+            } else {
+                this.setOrderByClause(this.getOrderByClause() + "," + ${var_InParam}.orderByClause.trim());
+            }
+        }
+        return this;
+    }
+
+    /**
+     * addCondition<br>
+     * @param entities
+     * @return this
+     */
+    public ${dto.tableDtoCriteriaClass} addCondition(${dto.tableDtoClass}[] entities) {
+        if (entities != null) {
+            for (${dto.tableDtoClass} e : entities) {
+                addCondition(e);
+            }
+        }
+        return this;
+    }
+#set($var_InParam="entity")
+#set($var_and="and")
+    /**
+     * addCondition<br>
+     * @param ${var_InParam}
+     * @return this
+     */
+    public ${dto.tableDtoCriteriaClass} addCondition(${dto.tableDtoClass} ${var_InParam}) {
+        Criteria ac = this.createCriteria();
+
+#foreach ( $field in $dto.fieldList )
+        if (${var_InParam}.get${field.fieldIdCap} () != null) {
+            ac.${var_and}${field.fieldIdCap}EqualTo(${var_InParam}.get${field.fieldIdCap} ());
+        }
+#end
+        if (entity.get${var_theOrderByCondition}() != null) {
+            if (entity.get${var_theOrderByCondition}().trim().startsWith(",")) {
+                this.setOrderByClause(this.getOrderByClause() + entity.get${var_theOrderByCondition}().trim());
+            } else {
+                this.setOrderByClause(this.getOrderByClause() + "," + entity.get${var_theOrderByCondition}().trim());
+            }
+        }
+        return this;
     }
 }

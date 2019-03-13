@@ -1,118 +1,140 @@
 package ${dto.tableCrudServiceInterfacePackage};
 
 import java.util.List;
-import ${dto.tableDtoPackage}.${dto.classId};
+import java.util.Map;
+import org.apache.ibatis.session.RowBounds;
+import ${dto.tableDtoPackage}.${dto.tableDtoClass};
+import ${dto.tableDtoPackage}.${dto.tableDtoConditionClass};
+import ${dto.tableDtoPackage}.${dto.tableDtoCriteriaClass};
 
 /**
  * ${dto.TblName}:${dto.tblId} CRUD service interface declare.<br>
  *
- * @author UME-Generator
+ * @author Generator
  */
 public interface ${dto.tableCrudServiceInterface} {
-#if(${dto.tblHistory} != '')
-    /**
-     * Enable/Disable operation history table automatic insert.<br>
-     * 
-     * @param enable the enable to set
-     */
-    void setEnableOperationHistory(boolean enable);
-#end
 
-#if(${dto.primaryKeyFieldList.size()} > 0)
+###if(${dto.primaryKeyFieldList.size()} > 0)
     /**
-     * Insert entity.<br>
+     * insert record.<br>
      * 
-     * @param entity - entity instance
+     * @param record
      * @return
      */
-    Integer create(${dto.classId} entity);
-    
+    Integer insert(${dto.tableDtoClass} record);
     /**
-     * Insert entity list.<br>
+     * insert selective record.<br>
      * 
-     * @param entityList - entity instance list
+     * @param record
      * @return
      */
-    List<Integer> createList(List<${dto.classId}> entityList);
-    
+    Integer insertSelective(${dto.tableDtoClass} record);
     /**
-     * Update entity when exist, insert new record if not exist.<br>
+     * update by primary key selective.<br>
      * 
-     * @param entity - entity instance
+     * @param record
      * @return
      */
-    Integer createOrUpdate(${dto.classId} entity);
-    
+    Integer updateByPrimaryKeySelective(${dto.tableDtoClass} record);
     /**
-     * Update entity list when exist, insert new records if not exist.<br>
+     * update by primary key.<br>
      * 
-     * @param entityList - entity instance list
+     * @param record
      * @return
      */
-    List<Integer> createOrUpdateList(List<${dto.classId}> entityList);
-    
+    Integer updateByPrimaryKey(${dto.tableDtoClass} record);
     /**
-     * Update entity.<br>
+     * delete by primary key.<br>
      * 
-     * @param entity - entity instance
+     * @param record
      * @return
      */
-    Integer update(${dto.classId} entity);
-    
+    Integer deleteByPrimaryKey(${dto.tableDtoClass} record);
     /**
-     * Update entity list.<br>
+     * select by primary key.<br>
      * 
-     * @param entityList - entity instance list
-     * @return
+     * @param record
+     * @return ${dto.tableDtoClass}
      */
-    List<Integer> updateList(List<${dto.classId}> entityList);
-    
+    ${dto.tableDtoClass} selectByPrimaryKey(${dto.tableDtoClass} record);    
     /**
-     * Delete entity.<br>
+     * select by primary key with row lock.<br>
      * 
-     * @param entity - entity instance
-     * @return
+     * @param record
+     * @return ${dto.tableDtoClass}
      */
-    Integer delete(${dto.classId} entity);
+    ${dto.tableDtoClass} selectByPrimaryKeyForUpdate(${dto.tableDtoClass} record);
+###end
 
     /**
-     * Delete entity list.<br>
+     * select by example with Rowbounds.<br>
      * 
-     * @param entityList - entity instance list
-     * @return
+     * @param example
+     * @param rowBounds
+     * @return ${dto.tableDtoClass} list
      */
-    List<Integer> deleteList(List<${dto.classId}> entityList);
-    
+    List<${dto.tableDtoClass}> selectByExampleWithRowbounds(${dto.tableDtoCriteriaClass} example, RowBounds rowBounds);
     /**
-     * Find entity by primary key set.<br>
+     * select by example<br>
      * 
-     * @param criteria - query parameter
-     * @return - matched entity instance
+     * @param example
+     * @return ${dto.tableDtoClass} list
      */
-    ${dto.classId} find(${dto.classId} criteria);    
-#end    
+    List<${dto.tableDtoClass}> selectByExample(${dto.tableDtoCriteriaClass} example);
     /**
-     * Search entity list use equal match.<br>
+     * select by example with return map list<br>
      * 
-     * @param criteria - query parameter describe by entity
-     * @return - matched entity instance list
+     * @param example
+     * @return map list
      */
-    List<${dto.classId}> findList(${dto.classId} criteria);
-    
+    List<Map<String, Object>> selectByExampleReturnMap(${dto.tableDtoCriteriaClass} example);
     /**
-     * Search entity list use like (%var%) match.<br>
+     * select by condition<br>
      * 
-     * @param criteria - query parameter describe by map
-     * @return - matched entity instance list
+     * @param condition
+     * @return ${dto.tableDtoClass} list
      */
-    List<${dto.classId}> findListLike(${dto.classId} criteria);
-    
+    List<${dto.tableDtoClass}> selectByCondition(${dto.tableDtoConditionClass}[] condition);
     /**
-     * Count.<br>
+     * select by condition return map list<br>
      * 
-     * @param criteria - query parameter
-     * @return - matched entity instance list
+     * @param condition
+     * @return map list
      */
-    Integer count(${dto.classId} criteria);
-
+    List<Map<String, Object>> selectByConditionReturnMap(${dto.tableDtoConditionClass}[] condition);
+    /**
+     * select by entity<br>
+     * 
+     * @param entity
+     * @return ${dto.tableDtoClass} list
+     */
+    List<${dto.tableDtoClass}> selectByEntity(${dto.tableDtoClass}[] entity);
+    /**
+     * select by entity return map list<br>
+     * 
+     * @param entity
+     * @return map list
+     */
+    List<Map<String, Object>> selectByEntityReturnMap(${dto.tableDtoClass}[] entity);
+    /**
+     * count by example.<br>
+     * 
+     * @param example
+     * @return matched record number
+     */
+    Integer countByExample(${dto.tableDtoCriteriaClass} example);
+    /**
+     * count by condition.<br>
+     * 
+     * @param condition
+     * @return matched record number
+     */
+    Integer countByCondition(${dto.tableDtoConditionClass}[] condition);
+    /**
+     * count by entities.<br>
+     * 
+     * @param entity
+     * @return matched record number
+     */
+    Integer countByEntity(${dto.tableDtoClass}[] entity);
 }

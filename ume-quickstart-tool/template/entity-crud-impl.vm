@@ -1,227 +1,219 @@
 package ${dto.tableCrudServicePackage};
 
 import java.util.List;
-import javax.annotation.Resource;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
-import org.umeframework.dora.context.RequestContext;
-import org.umeframework.dora.dao.RdbDao;
-import ${dto.tableDtoPackage}.${dto.classId};
+import ${dto.tableMapperPackage}.${dto.tableMapperClass};
+import ${dto.tableDtoPackage}.${dto.tableDtoClass};
+import ${dto.tableDtoPackage}.${dto.tableDtoConditionClass};
+import ${dto.tableDtoPackage}.${dto.tableDtoCriteriaClass};
 import ${dto.tableCrudServiceInterfacePackage}.${dto.tableCrudServiceInterface};
 
 /**
  * ${dto.TblName}:${dto.tblId} CRUD service implementation.<br>
  *
- * @author UME-Generator
+ * @author Generator
  */
 @Service
 public class ${dto.tableCrudServiceClass} implements ${dto.tableCrudServiceInterface} {
     /**
-     * RdbDao
+     * ${dto.tableMapperClass}实例<br>
      */
-    @Resource
-    private RdbDao dao;
+    @Autowired
+    private ${dto.tableMapperClass} mapper;
 
-#if(${dto.tblHistory} != '')
-    /**
-     * Enable operation history table automatic insert flag.<br>
-     */
-    private boolean enableOperationHistory = true;
-    
+###if(${dto.primaryKeyFieldList.size()} > 0)
     /* (non-Javadoc)
      * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#setEnableOperationHistory
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#insert
      */
     @Override
-    public void setEnableOperationHistory(boolean enable) {
-        this.enableOperationHistory = enable;
-    }
-#end
-
-#if(${dto.primaryKeyFieldList.size()} > 0)
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#create
-     */
-    @Override
-	public Integer create(${dto.classId} entity) {
-#if(${dto.tblHistory} != '')
-        if (enableOperationHistory) {
-            // insert modified history
-            if (entity.getCreateAuthor() == null) {
-                entity.setCreateAuthor(getUid());
-            }
-            getDao().update(${dto.classId}.SQLID.INSERT_HISTORY_C, entity);
-        }
-#end
+	public Integer insert(${dto.tableDtoClass} record) {
 #if(${dto.generateDefaultTableField} == 1)
-        if (entity.getCreateAuthor() == null) {
-            entity.setCreateAuthor(getUid());
+        if (record.getCreateAuthor() == null && getLoginUserId() != null) {
+            record.setCreateAuthor(getLoginUserId());
         }
-        if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(getUid());
-        }
-#end
-        int result = getDao().update(${dto.classId}.SQLID.INSERT, entity);
-        return result;
-    }
-    
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#createList
-     */
-    @Override
-    public List<Integer> createList(List<${dto.classId}> entityList) {
-        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
-        for (${dto.classId} entity : entityList) {
-            result.add(create(entity));
-        }
-        return result;
-    }
-    
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#createOrUpdate
-     */
-    @Override
-    public Integer createOrUpdate(${dto.classId} entity) {
-        ${dto.classId} existed = getDao().queryForObject(${dto.classId}.SQLID.FIND, entity, ${dto.classId}.class);
-        if (existed == null) {
-            return create(entity);
-        } else {
-            return update(entity);
-        }
-    }
-    
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#createOrUpdateList
-     */
-    @Override
-    public List<Integer> createOrUpdateList(List<${dto.classId}> entityList) {
-        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
-        for (${dto.classId} entity : entityList) {
-            result.add(createOrUpdate(entity));
-        }
-        return result;
-    }
-    
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#update
-     */
-    @Override
-    public Integer update(${dto.classId} entity) {
-#if(${dto.tblHistory} != '')
-        if (enableOperationHistory) {
-            // insert modified history
-            if (entity.getCreateAuthor() == null) {
-                entity.setCreateAuthor(getUid());
-            }
-            getDao().update(${dto.classId}.SQLID.INSERT_HISTORY_U, find(entity));
+        if (record.getUpdateAuthor() == null && getLoginUserId() != null) {
+            record.setUpdateAuthor(getLoginUserId());
         }
 #end
+        int result = mapper.insert(record);
+        return result;
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#insertSelective
+     */
+    @Override
+    public Integer insertSelective(${dto.tableDtoClass} record) {
 #if(${dto.generateDefaultTableField} == 1)
-        if (entity.getUpdateAuthor() == null) {
-            entity.setUpdateAuthor(getUid());
+        if (record.getCreateAuthor() == null && getLoginUserId() != null) {
+            record.setCreateAuthor(getLoginUserId());
+        }
+        if (record.getUpdateAuthor() == null && getLoginUserId() != null) {
+            record.setUpdateAuthor(getLoginUserId());
         }
 #end
-        int result = getDao().update(${dto.classId}.SQLID.UPDATE, entity);
+        int result = mapper.insertSelective(record);
         return result;
     }
-    
     /* (non-Javadoc)
      * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#updateList
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#updateByPrimaryKeySelective
      */
     @Override
-    public List<Integer> updateList(List<${dto.classId}> entityList) {
-        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
-        for (${dto.classId} entity : entityList) {
-            result.add(update(entity));
-        }
-        return result;
-    }
-    
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#delete
-     */
-    @Override
-    public Integer delete(${dto.classId} entity) {
-#if(${dto.tblHistory} != '')
-        if (enableOperationHistory) {
-            // insert modified history
-            if (entity.getCreateAuthor() == null) {
-                entity.setCreateAuthor(getUid());
-            }
-            getDao().update(${dto.classId}.SQLID.INSERT_HISTORY_D, find(entity));
+    public Integer updateByPrimaryKeySelective(${dto.tableDtoClass} record) {
+#if(${dto.generateDefaultTableField} == 1)
+        if (record.getUpdateAuthor() == null && getLoginUserId() != null) {
+            record.setUpdateAuthor(getLoginUserId());
         }
 #end
-        int result = getDao().update(${dto.classId}.SQLID.DELETE, entity);
+        int result = mapper.updateByPrimaryKeySelective(record);
         return result;
     }
-    
     /* (non-Javadoc)
      * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#deleteList
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#updateByPrimaryKey
      */
     @Override
-    public List<Integer> deleteList(List<${dto.classId}> entityList) {
-        List<Integer> result = new java.util.ArrayList<Integer>(entityList.size());
-        for (${dto.classId} entity : entityList) {
-            result.add(delete(entity));
+    public Integer updateByPrimaryKey(${dto.tableDtoClass} record) {
+#if(${dto.generateDefaultTableField} == 1)
+        if (record.getUpdateAuthor() == null && getLoginUserId() != null) {
+            record.setUpdateAuthor(getLoginUserId());
         }
+#end
+        int result = mapper.updateByPrimaryKey(record);
         return result;
     }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#deleteByPrimaryKey
+     */
+    @Override
+    public Integer deleteByPrimaryKey(${dto.tableDtoClass} record) {
+        int result = mapper.deleteByPrimaryKey(record);
+        return result;
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByPrimaryKey
+     */
+    @Override
+    public ${dto.tableDtoClass} selectByPrimaryKey(${dto.tableDtoClass} record) {
+        return mapper.selectByPrimaryKey(record);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByPrimaryKeyForUpdate
+     */
+    @Override
+    public ${dto.tableDtoClass} selectByPrimaryKeyForUpdate(${dto.tableDtoClass} record) {
+        return mapper.selectByPrimaryKeyForUpdate(record);
+    }
+###end
 
     /* (non-Javadoc)
      * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#find
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByExampleWithRowbounds
      */
     @Override
-    public ${dto.classId} find(${dto.classId} criteria) {
-        return getDao().queryForObject(${dto.classId}.SQLID.FIND, criteria, ${dto.classId}.class);
-    }
-#end    
+    public List<${dto.tableDtoClass}> selectByExampleWithRowbounds(${dto.tableDtoCriteriaClass} example, RowBounds rowBounds) {
+        return mapper.selectByExampleWithRowbounds(example, rowBounds);
+    }    
     /* (non-Javadoc)
      * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#findList
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByExample
      */
     @Override
-    public List<${dto.classId}> findList(${dto.classId} criteria) {
-        return getDao().queryForObjectList(${dto.classId}.SQLID.FIND_LIST, criteria, ${dto.classId}.class);
+    public List<${dto.tableDtoClass}> selectByExample(${dto.tableDtoCriteriaClass} example) {
+        return mapper.selectByExample(example);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByExampleReturnMap
+     */
+    @Override
+    public List<Map<String, Object>> selectByExampleReturnMap(${dto.tableDtoCriteriaClass} example) {
+        return mapper.selectByExampleReturnMap(example);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByCondition
+     */
+    @Override
+    public List<${dto.tableDtoClass}> selectByCondition(${dto.tableDtoConditionClass}[] condition) {
+        ${dto.tableDtoCriteriaClass} example = new ${dto.tableDtoCriteriaClass}();
+        example.addCondition(condition);
+        return selectByExample(example);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByConditionReturnMap
+     */
+    @Override
+    public List<Map<String, Object>> selectByConditionReturnMap(${dto.tableDtoConditionClass}[] condition) {
+        ${dto.tableDtoCriteriaClass} example = new ${dto.tableDtoCriteriaClass}();
+        example.addCondition(condition);
+        return selectByExampleReturnMap(example);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByEntity
+     */
+    @Override
+    public List<${dto.tableDtoClass}> selectByEntity(${dto.tableDtoClass}[] entity) {
+        ${dto.tableDtoCriteriaClass} example = new ${dto.tableDtoCriteriaClass}();
+        example.addCondition(entity);
+        return selectByExample(example);
+    }    
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#selectByEntityReturnMap
+     */
+    @Override
+    public List<Map<String, Object>> selectByEntityReturnMap(${dto.tableDtoClass}[] entity) {
+        ${dto.tableDtoCriteriaClass} example = new ${dto.tableDtoCriteriaClass}();
+        example.addCondition(entity);
+        return selectByExampleReturnMap(example);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#countByExample
+     */
+    @Override
+    public Integer countByExample(${dto.tableDtoCriteriaClass} example) {
+        return mapper.countByExample(example);
+    }
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#countByCondition
+     */
+    @Override
+    public Integer countByCondition(${dto.tableDtoConditionClass}[] condition) {
+        ${dto.tableDtoCriteriaClass} example = new ${dto.tableDtoCriteriaClass}();
+        example.addCondition(condition);
+        return mapper.countByExample(example);
+    }    
+    /* (non-Javadoc)
+     * 
+     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#countByEntity
+     */
+    @Override
+    public Integer countByEntity(${dto.tableDtoClass}[] entity) {
+        ${dto.tableDtoCriteriaClass} example = new ${dto.tableDtoCriteriaClass}();
+        example.addCondition(entity);
+        return mapper.countByExample(example);
     }
     
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}#findListLike
-     */
-    @Override
-    public List<${dto.classId}> findListLike(${dto.classId} criteria) {
-        return getDao().queryForObjectList(${dto.classId}.SQLID.FIND_LIST_LIKE, criteria, ${dto.classId}.class);
-    }
-    
-    /* (non-Javadoc)
-     * 
-     * @see ${dto.tableCrudServicePackage}.${dto.tableCrudServiceInterface}
-     */
-    @Override
-    public Integer count(${dto.classId} criteria) {
-        return getDao().count(${dto.classId}.SQLID.COUNT, criteria);
-    }
-
 	/**
+	 * getLoginUserId
+	 * 
 	 * @return the uid
 	 */
-	public String getUid() {
-		return RequestContext.getCurrentContext().get("UID");
+	public String getLoginUserId() {
+		return null;
 	}
 	
-	/**
-	 * @return the dao
-	 */
-	public RdbDao getDao() {
-		return dao;
-	}
-
 }
