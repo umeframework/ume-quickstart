@@ -1,6 +1,6 @@
 package org.umeframework.quickstart.app;
 
-import org.umeframework.dora.tool.exp.db.Excel2DbExporter;
+import org.umeframework.quickstart.tool.exp.db.Excel2DbExporter;
 
 /**
  * 1.根据Excel输入的Table列表信息及数据库连接信息，查询数据字典获取表定义的结构。<br> 

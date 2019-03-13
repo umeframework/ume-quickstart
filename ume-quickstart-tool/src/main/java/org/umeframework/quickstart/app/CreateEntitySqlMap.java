@@ -1,7 +1,7 @@
 package org.umeframework.quickstart.app;
 
-import org.umeframework.dora.tool.gen.db.TableExcelGenerator;
-import org.umeframework.dora.tool.poi.TypeMapper;
+import org.umeframework.quickstart.tool.gen.db.TableExcelGenerator;
+import org.umeframework.quickstart.tool.poi.TypeMapper;
  
 /**
  * 读取并解析指定的输入目录下的所有数据库设计文档，生成如下的源码：<br>

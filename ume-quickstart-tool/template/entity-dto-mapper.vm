@@ -2,6 +2,7 @@
 package ${dto.tableMapperPackage};
 
 import java.util.List;
+import java.util.Map;
 import ${dto.tableDtoPackage}.${dto.tableDtoCriteriaClass};
 import ${dto.tableDtoPackage}.${dto.tableDtoClass};
 import org.apache.ibatis.annotations.Param;
@@ -13,15 +14,50 @@ import org.apache.ibatis.session.RowBounds;
  * @author Generator
  */
 public interface ${dto.tableMapperClass} {
+    /**
+     * insert
+     */
     int insert(${dto.tableDtoClass} record);
+    /**
+     * insertSelective
+     */
     int insertSelective(${dto.tableDtoClass} record);
+    /**
+     * updateByPrimaryKeySelective
+     */
     int updateByPrimaryKeySelective(${dto.tableDtoClass} record);
+    /**
+     * updateByPrimaryKey
+     */
     int updateByPrimaryKey(${dto.tableDtoClass} record);
+    /**
+     * deleteByPrimaryKey
+     */
     int deleteByPrimaryKey(${dto.tableDtoClass} record);
     
+    /**
+     * selectByPrimaryKey
+     */
     ${dto.tableDtoClass} selectByPrimaryKey(${dto.tableDtoClass} record);
+    /**
+     * selectByPrimaryKeyForUpdate
+     */
+    ${dto.tableDtoClass} selectByPrimaryKeyForUpdate(${dto.tableDtoClass} record);
+    /**
+     * selectByExampleWithRowbounds
+     */
     List<${dto.tableDtoClass}> selectByExampleWithRowbounds(${dto.tableDtoCriteriaClass} example, RowBounds rowBounds);
+    /**
+     * selectByExample
+     */
     List<${dto.tableDtoClass}> selectByExample(${dto.tableDtoCriteriaClass} example);
+    /**
+     * selectByExampleReturnMap
+     */
+    List<Map<String, Object>> selectByExampleReturnMap(${dto.tableDtoCriteriaClass} example);
+    /**
+     * countByExample
+     */
     int countByExample(${dto.tableDtoCriteriaClass} example);
     
     int updateByExampleSelective(@Param("record") ${dto.tableDtoClass} record, @Param("example") ${dto.tableDtoCriteriaClass} example);

@@ -1,6 +1,6 @@
 package org.umeframework.quickstart.app;
 
-import org.umeframework.dora.tool.exp.db.Excel2DbExporter;
+import org.umeframework.quickstart.tool.exp.db.Excel2DbExporter;
 
 /**
  * 基于Excel输入的Table列表信息及数据库连接信息到处的表结构后，生成JSON格式的数据。<br>
