@@ -7,12 +7,14 @@ import ${dto.tableDtoPackage}.${dto.tableDtoCriteriaClass};
 import ${dto.tableDtoPackage}.${dto.tableDtoClass};
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 数据表"$dto.className" Mapper类<br>
  *
  * @author Generator
  */
+@Mapper
 public interface ${dto.tableMapperClass} {
     /**
      * insert

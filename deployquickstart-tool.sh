@@ -7,7 +7,7 @@ mvn archetype:create-from-project
 
 cd target/generated-sources/archetype
 
-mvn clean deploy
+mvn clean deploy -DaltDeploymentRepository=internal.repo::default::file:../../umestore
 
 cd ../../..
 
