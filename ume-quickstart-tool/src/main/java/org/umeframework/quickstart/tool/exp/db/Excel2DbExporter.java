@@ -28,7 +28,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.umeframework.dora.ajax.impl.JsonRenderImpl;
-import org.umeframework.dora.dao.impl.JdbcDaoImpl;
+import org.umeframework.dora.dao.jdbc.JdbcDao;
 import org.umeframework.dora.log.Logger;
 import org.umeframework.dora.log.impl.Log4j2Impl;
 import org.umeframework.dora.util.StringUtil;
@@ -58,7 +58,7 @@ public class Excel2DbExporter extends ExcelAccessor implements DbDescQueryStr {
     /**
      * Dao实例
      */
-    private JdbcDaoImpl dao;
+    private JdbcDao dao;
     /**
      * 数据字典查询SQL语句
      */
@@ -130,10 +130,10 @@ public class Excel2DbExporter extends ExcelAccessor implements DbDescQueryStr {
         this.excelFile = excelFile;
         File file = new File(excelFile);
         book = loadExcel(file);
-        dao = new JdbcDaoImpl();
+        dao = new JdbcDao();
         DataSource ds = getDataSource();
-        ((JdbcDaoImpl) dao).setDataSource(ds);
-        ((JdbcDaoImpl) dao).setLogger(logger);
+        dao.setDataSource(ds);
+        dao.setLogger(logger);
     }
 
     // /**
