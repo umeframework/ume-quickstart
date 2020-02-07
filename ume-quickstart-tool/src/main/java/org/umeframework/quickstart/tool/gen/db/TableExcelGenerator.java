@@ -16,8 +16,8 @@ import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.umeframework.dora.util.StringKanaUtil;
-import org.umeframework.dora.util.ValidatorUtil;
+//import org.umeframework.dora.util.StringUtil;
+//import org.umeframework.dora.util.ValidatorUtil;
 import org.umeframework.quickstart.tool.gen.EntityGenerator;
 import org.umeframework.quickstart.tool.poi.ExcelAccessor;
 import org.umeframework.quickstart.tool.poi.TypeMapper;
@@ -176,9 +176,9 @@ public class TableExcelGenerator extends ExcelAccessor {
         TableDescBean dto = new TableDescBean();
         String tblName = getCellValueAsString(getCell(sheet, 0, 2));
         String tblId = getCellValueAsString(getCell(sheet, 1, 2));
-        if (!ValidatorUtil.isAlphaNumeric(tblId)) {
-            tblId = StringKanaUtil.zenkakuToHankaku(tblId);
-        }
+        //if (!ValidatorUtil.isAlphaNumeric(tblId)) {
+        //    tblId = StringKanaUtil.zenkakuToHankaku(tblId);
+        //}
         String tblDivision = getCellValueAsString(getCell(sheet, 2, 2));
         tblDivision = !isEmpty(tblDivision) ? "${theDivision}" : "";
 
@@ -283,7 +283,7 @@ public class TableExcelGenerator extends ExcelAccessor {
             String textFormat = String.valueOf(row.get(11)).trim();
             String comment = String.valueOf(row.get(12)).trim();
 
-            itemId = ValidatorUtil.isAlphaNumeric(itemId) ? itemId : StringKanaUtil.zenkakuToHankaku(itemId);
+            //itemId = ValidatorUtil.isAlphaNumeric(itemId) ? itemId : StringKanaUtil.zenkakuToHankaku(itemId);
             primaryKey = !isEmpty(primaryKey) ? "Y" : "";
             notNull = !isEmpty(notNull) || !isEmpty(primaryKey) ? "NOT NULL" : "";
 
