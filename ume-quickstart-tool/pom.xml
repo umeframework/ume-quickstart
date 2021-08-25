@@ -28,7 +28,7 @@
 		<version.commons-pool>1.6</version.commons-pool>
 		<version.commons-validator>1.5.0</version.commons-validator>
 		<version.velocity>1.7</version.velocity>
-		<version.xstream>1.4</version.xstream>
+		<version.xstream>1.4.18</version.xstream>
 		<version.xpp3>1.1.4c</version.xpp3>
 		<version.mysql-connector-java>5.1.31</version.mysql-connector-java>
 		<version.poi>3.15</version.poi>
